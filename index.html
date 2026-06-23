@@ -801,6 +801,185 @@
     margin-top: -45px;
   }
 }
+    /* LEPSZE ANIMACJE PRZYCISKÓW U GÓRY */
+
+/* wspólna animacja dla małych przycisków */
+.small-icons button,
+.access-icons button,
+.search button,
+.nav a {
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    filter 0.25s ease;
+}
+
+/* efekt błysku na przyciskach */
+.small-icons button::before,
+.access-icons button::before,
+.search button::before,
+.nav a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.45),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: 0.55s;
+}
+
+/* błysk po najechaniu */
+.small-icons button:hover::before,
+.access-icons button:hover::before,
+.search button:hover::before,
+.nav a:hover::before {
+  left: 140%;
+}
+
+/* szare ikonki u góry */
+.small-icons button:hover {
+  transform: translateY(-5px) scale(1.12) rotate(-4deg);
+  background: #2457dc;
+  box-shadow: 0 12px 25px rgba(36, 87, 220, 0.35);
+}
+
+/* niebieskie ikonki dostępności */
+.access-icons button:hover {
+  transform: translateY(-5px) scale(1.12);
+  background: #e52323;
+  box-shadow: 0 12px 25px rgba(229, 35, 35, 0.35);
+}
+
+/* każdy drugi przycisk lekko inaczej */
+.access-icons button:nth-child(even):hover,
+.small-icons button:nth-child(even):hover {
+  transform: translateY(-5px) scale(1.12) rotate(4deg);
+}
+
+/* kliknięcie */
+.small-icons button:active,
+.access-icons button:active,
+.search button:active,
+.nav a:active {
+  transform: scale(0.92);
+}
+
+/* menu główne */
+.nav a:hover {
+  background: rgba(36, 87, 220, 0.09);
+  color: #2457dc;
+  border-radius: 12px;
+  transform: translateY(-3px);
+}
+
+/* przycisk domku */
+.nav a.home-link {
+  font-size: 22px;
+  padding: 11px 22px;
+  background: #2457dc;
+  color: white;
+  border-radius: 13px;
+  box-shadow: 0 10px 22px rgba(36, 87, 220, 0.28);
+}
+
+.nav a.home-link:hover {
+  animation: homeBounce 0.55s ease;
+  background: #e52323;
+  color: white;
+  box-shadow: 0 14px 30px rgba(229, 35, 35, 0.35);
+}
+
+@keyframes homeBounce {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+
+  35% {
+    transform: translateY(-7px) scale(1.1);
+  }
+
+  65% {
+    transform: translateY(2px) scale(0.96);
+  }
+
+  100% {
+    transform: translateY(-3px) scale(1);
+  }
+}
+
+/* search input */
+.search input {
+  transition: box-shadow 0.25s ease, background 0.25s ease, width 0.25s ease;
+}
+
+.search input:focus {
+  background: white;
+  box-shadow: 0 0 0 3px rgba(36, 87, 220, 0.22);
+  width: 250px;
+}
+
+/* przycisk szukaj */
+.search button:hover {
+  background: #c91616;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(229, 35, 35, 0.35);
+}
+
+/* logo — mocniejsza animacja */
+.logo {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.logo:hover {
+  transform: translateY(-4px) scale(1.03);
+  filter: drop-shadow(0 14px 20px rgba(36, 87, 220, 0.3));
+}
+
+.logo:hover .fake-herb {
+  animation: logoWiggle 0.75s ease;
+}
+
+@keyframes logoWiggle {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  25% {
+    transform: rotate(-6deg) scale(1.08);
+  }
+
+  50% {
+    transform: rotate(6deg) scale(1.1);
+  }
+
+  75% {
+    transform: rotate(-3deg) scale(1.05);
+  }
+
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+/* delikatne podświetlenie całego headera po najechaniu */
+.header {
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.header:hover {
+  box-shadow: 0 30px 75px rgba(0, 0, 0, 0.24);
+}
   </style>
 </head>
 
