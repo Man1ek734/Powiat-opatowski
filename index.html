@@ -710,6 +710,97 @@
         flex-direction: column;
       }
     }
+    /* POPRAWKI WYGLĄDU */
+
+.logo {
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.logo:hover {
+  transform: translateY(-4px) scale(1.03);
+  filter: drop-shadow(0 12px 18px rgba(36, 87, 220, 0.25));
+}
+
+.logo:hover .fake-herb {
+  animation: herbPulse 0.8s ease;
+}
+
+@keyframes herbPulse {
+  0% {
+    transform: rotate(0deg) scale(1);
+  }
+
+  35% {
+    transform: rotate(-4deg) scale(1.08);
+  }
+
+  70% {
+    transform: rotate(4deg) scale(1.05);
+  }
+
+  100% {
+    transform: rotate(0deg) scale(1);
+  }
+}
+
+.nav a.home-link {
+  font-size: 22px;
+  padding: 11px 22px;
+}
+
+.nav a.home-link::after {
+  display: none;
+}
+
+/* żeby meteorologiczne nie chowało się pod menu */
+.weather-buttons {
+  top: 210px;
+}
+
+/* więcej miejsca na tekst główny */
+.hero {
+  min-height: 880px;
+  padding-top: 285px;
+}
+
+.hero-content {
+  padding-top: 135px;
+}
+
+/* przyciski nie będą wchodzić pod kafelki */
+.hero-actions {
+  margin-bottom: 80px;
+}
+
+/* kafelki niżej, żeby nie zasłaniały przycisków */
+.quick {
+  margin-top: -70px;
+}
+
+/* trochę szersze i równiejsze kafelki */
+.quick-card {
+  min-height: 190px;
+}
+
+/* poprawka responsywna */
+@media (max-width: 700px) {
+  .weather-buttons {
+    top: 165px;
+  }
+
+  .hero {
+    min-height: 850px;
+    padding-top: 210px;
+  }
+
+  .hero-content {
+    padding-top: 250px;
+  }
+
+  .quick {
+    margin-top: -45px;
+  }
+}
   </style>
 </head>
 
@@ -720,7 +811,7 @@
 
   <header class="header">
     <div class="header-top">
-      <a href="#" class="logo">
+      <a href="index.html" class="logo" title="Przejdź na stronę główną">
         <div class="fake-herb"></div>
         <div>
           <h1>Opatów</h1>
@@ -754,7 +845,7 @@
     </div>
 
     <nav class="nav" id="nav">
-      <a href="#">Start</a>
+      <a href="index.html" class="home-link" aria-label="Strona główna">🏠</a>
       <a href="#">Dostępność</a>
       <a href="#">Aktualności</a>
       <a href="#">Powiat</a>
