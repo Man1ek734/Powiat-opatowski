@@ -4,47 +4,757 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Powiat Opatowski</title>
-  <link rel="stylesheet" href="css/style.css" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f6fb;
+      color: #111827;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    button,
+    input {
+      font-family: inherit;
+    }
+
+    .header {
+      position: fixed;
+      top: 22px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(1480px, calc(100% - 40px));
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+      z-index: 100;
+      overflow: hidden;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      padding: 22px 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .fake-herb {
+      width: 78px;
+      height: 88px;
+      border-radius: 12px 12px 22px 22px;
+      background: linear-gradient(135deg, #2457dc 0 50%, #e52323 50% 100%);
+      border: 4px solid white;
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .fake-herb::before {
+      content: "✦";
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      font-size: 34px;
+    }
+
+    .fake-herb::after {
+      content: "";
+      position: absolute;
+      left: 15px;
+      right: 15px;
+      bottom: 13px;
+      height: 6px;
+      border-radius: 999px;
+      background: #ffd700;
+    }
+
+    .logo h1 {
+      color: #2457dc;
+      font-size: 42px;
+      line-height: 0.9;
+      letter-spacing: -1px;
+    }
+
+    .logo p {
+      margin-top: 8px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 19px;
+    }
+
+    .header-tools {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .small-icons,
+    .access-icons {
+      display: flex;
+      gap: 8px;
+    }
+
+    .small-icons button {
+      width: 36px;
+      height: 36px;
+      border: 0;
+      border-radius: 50%;
+      background: #777;
+      color: white;
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .access-icons button {
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 9px;
+      background: #2457dc;
+      color: white;
+      cursor: pointer;
+      font-weight: 900;
+    }
+
+    .small-icons button:hover,
+    .access-icons button:hover {
+      transform: translateY(-3px);
+      filter: brightness(1.12);
+    }
+
+    .search {
+      display: flex;
+    }
+
+    .search input {
+      width: 220px;
+      border: 0;
+      outline: none;
+      background: #e7e7e7;
+      padding: 14px 16px;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .search button {
+      border: 0;
+      background: #e52323;
+      color: white;
+      padding: 0 22px;
+      border-radius: 0 10px 10px 0;
+      text-transform: uppercase;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .menu-button {
+      display: none;
+      width: 48px;
+      height: 48px;
+      border: 0;
+      border-radius: 13px;
+      background: #2457dc;
+      color: white;
+      font-size: 26px;
+      cursor: pointer;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 30px 20px;
+    }
+
+    .nav a {
+      position: relative;
+      padding: 14px 24px;
+      text-transform: uppercase;
+      font-weight: 900;
+      border-left: 1px solid #ddd;
+    }
+
+    .nav a:first-child {
+      border-left: 0;
+      background: #2457dc;
+      color: white;
+      border-radius: 12px;
+    }
+
+    .nav a::after {
+      content: "";
+      position: absolute;
+      left: 24px;
+      right: 24px;
+      bottom: 7px;
+      height: 2px;
+      background: #e52323;
+      transform: scaleX(0);
+      transition: 0.2s;
+    }
+
+    .nav a:hover::after {
+      transform: scaleX(1);
+    }
+
+    .hero {
+      min-height: 820px;
+      position: relative;
+      overflow: hidden;
+      padding-top: 260px;
+      background:
+        radial-gradient(circle at 18% 35%, rgba(36, 87, 220, 0.75), transparent 28%),
+        radial-gradient(circle at 82% 25%, rgba(229, 35, 35, 0.6), transparent 25%),
+        linear-gradient(135deg, #071d59 0%, #123aa0 48%, #0a1744 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      opacity: 0.45;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -80px;
+      height: 260px;
+      background: #f3f6fb;
+      border-radius: 50% 50% 0 0;
+      z-index: 1;
+    }
+
+    .weather-buttons {
+      position: absolute;
+      top: 185px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 5;
+      width: min(860px, calc(100% - 40px));
+      display: flex;
+      gap: 18px;
+    }
+
+    .weather-buttons a {
+      flex: 1;
+      background: white;
+      text-align: center;
+      padding: 20px 24px;
+      border-radius: 0 0 14px 14px;
+      text-transform: uppercase;
+      font-weight: 900;
+      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .weather-buttons a::after {
+      content: "";
+      position: absolute;
+      left: 25%;
+      right: 25%;
+      bottom: 12px;
+      height: 2px;
+      background: #e52323;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 3;
+      width: min(1250px, calc(100% - 50px));
+      margin: 0 auto;
+      color: white;
+      padding-top: 120px;
+    }
+
+    .hero-content .tag {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 22px;
+    }
+
+    .hero-content h2 {
+      font-size: clamp(50px, 8vw, 110px);
+      line-height: 0.92;
+      letter-spacing: -4px;
+      margin-bottom: 22px;
+    }
+
+    .hero-content p {
+      max-width: 720px;
+      font-size: 22px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 34px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 54px;
+      padding: 0 30px;
+      border-radius: 999px;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .btn-red {
+      background: #e52323;
+      color: white;
+    }
+
+    .btn-white {
+      background: white;
+      color: #071d59;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 51%;
+      transform: translateY(-50%);
+      z-index: 4;
+      width: 58px;
+      height: 98px;
+      border: 0;
+      border-radius: 16px;
+      background: rgba(255,255,255,0.22);
+      color: white;
+      font-size: 64px;
+      cursor: pointer;
+    }
+
+    .arrow.left {
+      left: 34px;
+    }
+
+    .arrow.right {
+      right: 34px;
+    }
+
+    .quick {
+      position: relative;
+      z-index: 10;
+      width: min(1300px, calc(100% - 44px));
+      margin: -115px auto 0;
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 18px;
+    }
+
+    .quick-card {
+      min-height: 180px;
+      background: rgba(255,255,255,0.97);
+      border-radius: 26px;
+      padding: 24px 16px;
+      text-align: center;
+      box-shadow: 0 22px 50px rgba(20, 40, 90, 0.18);
+      transition: 0.25s;
+    }
+
+    .quick-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 30px 65px rgba(20, 40, 90, 0.26);
+    }
+
+    .quick-card.big {
+      grid-column: span 2;
+    }
+
+    .icon {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 16px;
+      border-radius: 18px;
+      display: grid;
+      place-items: center;
+      color: white;
+      font-size: 28px;
+      font-weight: 900;
+    }
+
+    .red { background: #e52323; }
+    .green { background: #20b85a; }
+    .blue { background: #19a8e8; }
+    .darkred { background: #d70013; font-size: 42px; font-family: Georgia, serif; }
+    .outline {
+      background: white;
+      color: #12549d;
+      border: 3px solid #12549d;
+    }
+    .purple { background: #527bd8; }
+    .orange { background: #ff981a; }
+
+    .quick-card h3 {
+      font-size: 15px;
+      text-transform: uppercase;
+      line-height: 1.25;
+      margin-bottom: 8px;
+    }
+
+    .quick-card p {
+      color: #6b7280;
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .services,
+    .news {
+      width: min(1300px, calc(100% - 44px));
+      margin: 80px auto 0;
+    }
+
+    .section-title {
+      margin-bottom: 30px;
+    }
+
+    .section-title p {
+      color: #e52323;
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(36px, 5vw, 58px);
+      color: #071d59;
+      letter-spacing: -2px;
+    }
+
+    .service-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 26px;
+    }
+
+    .service-card {
+      min-height: 260px;
+      border-radius: 32px;
+      padding: 36px;
+      color: white;
+      background: linear-gradient(135deg, #4d4942, #81776d);
+      box-shadow: 0 25px 60px rgba(20, 40, 90, 0.22);
+      position: relative;
+      overflow: hidden;
+      transition: 0.25s;
+    }
+
+    .service-card:nth-child(2) {
+      background: linear-gradient(135deg, #2457dc, #071d59);
+    }
+
+    .service-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .service-card::after {
+      content: "";
+      position: absolute;
+      width: 230px;
+      height: 230px;
+      border-radius: 50%;
+      right: -70px;
+      top: -70px;
+      background: rgba(255,255,255,0.12);
+    }
+
+    .service-card span {
+      font-weight: 900;
+      opacity: 0.75;
+    }
+
+    .service-card h3 {
+      margin-top: 70px;
+      font-size: clamp(34px, 5vw, 62px);
+      line-height: 0.95;
+      text-transform: uppercase;
+      letter-spacing: 4px;
+    }
+
+    .service-card p {
+      margin-top: 18px;
+      color: rgba(255,255,255,0.82);
+      font-size: 17px;
+      line-height: 1.5;
+      max-width: 520px;
+    }
+
+    .news {
+      margin-bottom: 90px;
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .news-card {
+      background: white;
+      border-radius: 30px;
+      padding: 30px;
+      box-shadow: 0 18px 45px rgba(20, 40, 90, 0.12);
+      transition: 0.25s;
+    }
+
+    .news-card:hover {
+      transform: translateY(-7px);
+    }
+
+    .date {
+      display: inline-block;
+      background: #2457dc;
+      color: white;
+      padding: 9px 14px;
+      border-radius: 999px;
+      font-weight: 900;
+      margin-bottom: 20px;
+    }
+
+    .news-card h3 {
+      font-size: 25px;
+      color: #071d59;
+      margin-bottom: 12px;
+    }
+
+    .news-card p {
+      color: #687083;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .news-card a {
+      color: #e52323;
+      font-weight: 900;
+    }
+
+    .floating-access {
+      position: fixed;
+      right: 18px;
+      top: 18px;
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      border: 4px solid white;
+      background: #2457dc;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      z-index: 200;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    }
+
+    .floating-settings {
+      position: fixed;
+      right: 20px;
+      bottom: 28px;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      border: 4px solid white;
+      background: #557fdc;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 26px;
+      z-index: 200;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
+    }
+
+    footer {
+      background: #071d59;
+      color: white;
+      padding: 45px min(80px, 6vw);
+      display: flex;
+      justify-content: space-between;
+      gap: 30px;
+    }
+
+    footer p {
+      margin-top: 8px;
+      color: rgba(255,255,255,0.75);
+    }
+
+    @media (max-width: 1150px) {
+      .header-tools {
+        display: none;
+      }
+
+      .menu-button {
+        display: block;
+      }
+
+      .nav {
+        display: none;
+        flex-direction: column;
+        padding: 0 25px 25px;
+      }
+
+      .nav.show {
+        display: flex;
+      }
+
+      .nav a {
+        border-left: none;
+        border-top: 1px solid #ddd;
+      }
+
+      .quick {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .quick-card.big {
+        grid-column: span 1;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .header {
+        top: 12px;
+        width: calc(100% - 22px);
+      }
+
+      .header-top {
+        padding: 16px;
+      }
+
+      .fake-herb {
+        width: 58px;
+        height: 66px;
+      }
+
+      .logo h1 {
+        font-size: 30px;
+      }
+
+      .logo p {
+        font-size: 13px;
+      }
+
+      .hero {
+        padding-top: 190px;
+        min-height: 780px;
+      }
+
+      .weather-buttons {
+        top: 145px;
+        flex-direction: column;
+      }
+
+      .hero-content {
+        padding-top: 220px;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+      }
+
+      .arrow {
+        display: none;
+      }
+
+      .quick {
+        grid-template-columns: 1fr;
+        margin-top: -80px;
+      }
+
+      .service-grid,
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      footer {
+        flex-direction: column;
+      }
+    }
+  </style>
 </head>
 
 <body>
-  <header class="top-header">
-    <div class="header-inner">
-      <a href="#" class="brand">
-        <img src="assets/herb.png" alt="Herb Powiatu Opatowskiego" />
+
+  <div class="floating-access">♿</div>
+  <div class="floating-settings">⚙</div>
+
+  <header class="header">
+    <div class="header-top">
+      <a href="#" class="logo">
+        <div class="fake-herb"></div>
         <div>
-          <strong>Opatów</strong>
-          <span>Starostwo Powiatowe</span>
+          <h1>Opatów</h1>
+          <p>Starostwo Powiatowe</p>
         </div>
       </a>
 
-      <div class="header-actions">
-        <div class="round-icons" aria-label="Skróty">
-          <button title="Strona główna">⌂</button>
-          <button title="Mapa strony">▦</button>
-          <button title="Kontakt">✉</button>
-          <button title="RSS">◔</button>
+      <div class="header-tools">
+        <div class="small-icons">
+          <button>⌂</button>
+          <button>▦</button>
+          <button>✉</button>
+          <button>RSS</button>
         </div>
 
-        <div class="accessibility">
-          <button title="Kontrast">◼</button>
-          <button title="Dostępność">♿</button>
-          <button title="Język migowy">☝</button>
-          <button title="Dźwięk">♬</button>
-          <button title="Czytnik">◑</button>
+        <div class="access-icons">
+          <button>■</button>
+          <button>♿</button>
+          <button>☝</button>
+          <button>♫</button>
+          <button>◐</button>
         </div>
 
         <form class="search">
-          <input type="search" placeholder="Szukaj..." />
-          <button type="submit">Szukaj</button>
+          <input type="text" placeholder="Szukaj..." />
+          <button>Szukaj</button>
         </form>
       </div>
 
-      <button class="mobile-menu" id="mobileMenu">☰</button>
+      <button class="menu-button" id="menuButton">☰</button>
     </div>
 
-    <nav class="main-nav" id="mainNav">
-      <a href="#" class="active">Start</a>
+    <nav class="nav" id="nav">
+      <a href="#">Start</a>
       <a href="#">Dostępność</a>
       <a href="#">Aktualności</a>
       <a href="#">Powiat</a>
@@ -56,80 +766,76 @@
 
   <main>
     <section class="hero">
-      <div class="hero-overlay"></div>
+      <button class="arrow left">‹</button>
+      <button class="arrow right">›</button>
 
-      <button class="slider-arrow left" aria-label="Poprzedni slajd">‹</button>
-      <button class="slider-arrow right" aria-label="Następny slajd">›</button>
-
-      <div class="hero-content">
-        <p class="eyebrow">Oficjalny serwis powiatu</p>
-        <h1>Powiat Opatowski</h1>
-        <p>
-          Najważniejsze informacje, usługi dla mieszkańców, komunikaty,
-          ostrzeżenia oraz szybki dostęp do spraw urzędowych.
-        </p>
-
-        <div class="hero-buttons">
-          <a href="#" class="btn primary">Załatw sprawę</a>
-          <a href="#" class="btn secondary">Aktualności</a>
-        </div>
-      </div>
-
-      <div class="weather-boxes">
+      <div class="weather-buttons">
         <a href="#">Archiwum meteorologiczne</a>
         <a href="#">Aktualne ostrzeżenia meteorologiczne</a>
       </div>
+
+      <div class="hero-content">
+        <span class="tag">Oficjalny serwis powiatu</span>
+        <h2>Powiat Opatowski</h2>
+        <p>
+          Nowoczesna strona główna dla mieszkańców, turystów i przedsiębiorców.
+          Sprawy urzędowe, aktualności, komunikaty oraz ważne informacje w jednym miejscu.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#" class="btn btn-red">Załatw sprawę</a>
+          <a href="#" class="btn btn-white">Zobacz aktualności</a>
+        </div>
+      </div>
     </section>
 
-    <section class="quick-section">
-      <div class="quick-grid">
-        <a href="#" class="quick-card">
-          <div class="quick-icon red">⚖</div>
-          <h3>Nieodpłatna pomoc prawna</h3>
-          <p>Kliknij, aby umówić poradę.</p>
-        </a>
+    <section class="quick">
+      <a href="#" class="quick-card">
+        <div class="icon red">⚖</div>
+        <h3>Nieodpłatna pomoc prawna</h3>
+        <p>Kliknij, aby umówić poradę prawną.</p>
+      </a>
 
-        <a href="#" class="quick-card">
-          <div class="quick-icon green">✚</div>
-          <h3>Dyżury aptek</h3>
-          <p>Sprawdź aktualne dyżury.</p>
-        </a>
+      <a href="#" class="quick-card">
+        <div class="icon green">✚</div>
+        <h3>Dyżury aptek</h3>
+        <p>Sprawdź aktualne dyżury aptek.</p>
+      </a>
 
-        <a href="#" class="quick-card">
-          <div class="quick-icon blue">PZT</div>
-          <h3>Powiatowy Zakład Transportu</h3>
-          <p>Rozkłady i informacje.</p>
-        </a>
+      <a href="#" class="quick-card">
+        <div class="icon blue">PZT</div>
+        <h3>Powiatowy Zakład Transportu</h3>
+        <p>Rozkłady jazdy i informacje.</p>
+      </a>
 
-        <a href="#" class="quick-card">
-          <div class="quick-icon red-dark">K</div>
-          <h3>Kurier Opatowski</h3>
-          <p>Najnowsze wydania.</p>
-        </a>
+      <a href="#" class="quick-card">
+        <div class="icon darkred">K</div>
+        <h3>Kurier Opatowski</h3>
+        <p>Najnowsze wydania i archiwum.</p>
+      </a>
 
-        <a href="#" class="quick-card">
-          <div class="quick-icon outline">▦</div>
-          <h3>Transmisje sesji Rady Powiatu</h3>
-          <p>Obrady online i archiwum.</p>
-        </a>
+      <a href="#" class="quick-card">
+        <div class="icon outline">▦</div>
+        <h3>Transmisje sesji Rady Powiatu</h3>
+        <p>Oglądaj transmisje online.</p>
+      </a>
 
-        <a href="#" class="quick-card">
-          <div class="quick-icon polygon">◆</div>
-          <h3>Polski Ład</h3>
-          <p>Inwestycje i programy.</p>
-        </a>
+      <a href="#" class="quick-card">
+        <div class="icon purple">◆</div>
+        <h3>Polski Ład</h3>
+        <p>Programy, inwestycje i projekty.</p>
+      </a>
 
-        <a href="#" class="quick-card wide">
-          <div class="quick-icon orange">⬡</div>
-          <h3>Program ochrony ludności i obrony cywilnej 2025–2026</h3>
-          <p>Informacje dotyczące bezpieczeństwa.</p>
-        </a>
-      </div>
+      <a href="#" class="quick-card big">
+        <div class="icon orange">⬡</div>
+        <h3>Program ochrony ludności i obrony cywilnej 2025–2026</h3>
+        <p>Bezpieczeństwo mieszkańców powiatu.</p>
+      </a>
     </section>
 
     <section class="services">
       <div class="section-title">
-        <span>Najczęściej wybierane</span>
+        <p>Najczęściej wybierane</p>
         <h2>Usługi dla mieszkańców</h2>
       </div>
 
@@ -137,62 +843,47 @@
         <a href="#" class="service-card">
           <span>01</span>
           <h3>Wydawanie uprawnień</h3>
-          <p>Prawo jazdy, dokumenty, wnioski i status sprawy.</p>
+          <p>Prawo jazdy, dokumenty, wnioski, formularze i informacje dla interesantów.</p>
         </a>
 
         <a href="#" class="service-card">
           <span>02</span>
           <h3>Rejestracja pojazdów</h3>
-          <p>Sprawdź wymagane dokumenty i opłaty.</p>
-        </a>
-
-        <a href="#" class="service-card">
-          <span>03</span>
-          <h3>Geodezja</h3>
-          <p>Mapy, wypisy, ewidencja gruntów i budynków.</p>
-        </a>
-
-        <a href="#" class="service-card">
-          <span>04</span>
-          <h3>Komunikaty</h3>
-          <p>Ostrzeżenia, informacje urzędowe i ogłoszenia.</p>
+          <p>Rejestracja auta, wymagane dokumenty, opłaty oraz najważniejsze procedury.</p>
         </a>
       </div>
     </section>
 
     <section class="news">
       <div class="section-title">
-        <span>Aktualności</span>
+        <p>Aktualności</p>
         <h2>Najnowsze informacje</h2>
       </div>
 
       <div class="news-grid">
-        <article>
+        <article class="news-card">
           <div class="date">12 cze</div>
-          <h3>Nowe informacje dla mieszkańców</h3>
-          <p>Krótki opis aktualności, który zachęca do wejścia w artykuł.</p>
-          <a href="#">Czytaj więcej</a>
-        </article>
-
-        <article>
-          <div class="date">10 cze</div>
           <h3>Komunikat Starostwa Powiatowego</h3>
-          <p>Ważne ogłoszenie dotyczące działania urzędu i obsługi interesantów.</p>
+          <p>Krótki opis aktualności, który wygląda nowocześnie i zachęca do kliknięcia.</p>
           <a href="#">Czytaj więcej</a>
         </article>
 
-        <article>
+        <article class="news-card">
+          <div class="date">10 cze</div>
+          <h3>Informacje dla mieszkańców</h3>
+          <p>Najważniejsze sprawy urzędowe, ogłoszenia i komunikaty z powiatu.</p>
+          <a href="#">Czytaj więcej</a>
+        </article>
+
+        <article class="news-card">
           <div class="date">08 cze</div>
           <h3>Inwestycje w powiecie</h3>
-          <p>Informacje o realizowanych projektach i planowanych pracach.</p>
+          <p>Aktualne projekty, remonty, wydarzenia i działania realizowane lokalnie.</p>
           <a href="#">Czytaj więcej</a>
         </article>
       </div>
     </section>
   </main>
-
-  <button class="access-floating" title="Dostępność">♿</button>
-  <button class="settings-floating" title="Ustawienia">⚙</button>
 
   <footer>
     <div>
@@ -206,6 +897,28 @@
     </div>
   </footer>
 
-  <script src="js/main.js"></script>
+  <script>
+    const menuButton = document.querySelector("#menuButton");
+    const nav = document.querySelector("#nav");
+
+    menuButton.addEventListener("click", () => {
+      nav.classList.toggle("show");
+    });
+
+    const search = document.querySelector(".search");
+
+    search.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const text = search.querySelector("input").value.trim();
+
+      if (text.length === 0) {
+        alert("Wpisz frazę do wyszukania.");
+      } else {
+        alert("Szukasz: " + text);
+      }
+    });
+  </script>
+
 </body>
 </html>
