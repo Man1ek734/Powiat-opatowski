@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mapa strony – Powiat Opatowski</title>
+  <title>Mapa strony - Powiat Opatowski</title>
 
   <style>
     * {
@@ -14,22 +14,20 @@
 
     :root {
       --blue: #2457dc;
-      --blue-dark: #071d59;
+      --dark-blue: #071d59;
       --red: #e52323;
-      --bg: #eef3fb;
-      --text: #14213d;
+      --light: #f3f6fb;
+      --text: #111827;
       --muted: #6b7280;
-      --card: rgba(255,255,255,0.96);
-      --shadow: 0 22px 55px rgba(20, 40, 90, 0.14);
-      --radius: 26px;
+      --white: #ffffff;
+      --shadow: 0 22px 55px rgba(20, 40, 90, 0.16);
     }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(circle at top left, rgba(36,87,220,0.10), transparent 25%),
-        linear-gradient(180deg, #f7f9fd 0%, #eef3fb 100%);
+      background: #f3f6fb;
       color: var(--text);
+      overflow-x: hidden;
     }
 
     a {
@@ -37,588 +35,969 @@
       color: inherit;
     }
 
-    .page-wrap {
-      width: min(1380px, calc(100% - 34px));
-      margin: 18px auto 40px;
-    }
-
-    .header {
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(14px);
-      border-radius: 30px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12);
-      padding: 22px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-    }
-
-    .brand img {
-      width: 78px;
-      height: 88px;
-      object-fit: contain;
-      filter: drop-shadow(0 8px 15px rgba(0,0,0,0.18));
-    }
-
-    .brand h1 {
-      font-size: 28px;
-      color: var(--blue);
-      line-height: 1;
-      margin-bottom: 6px;
-    }
-
-    .brand p {
-      color: #666;
-      text-transform: uppercase;
-      letter-spacing: 0.8px;
-      font-size: 14px;
-    }
-
-    .header-actions {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-
-    .ghost-btn,
-    .home-btn {
-      min-height: 46px;
-      padding: 0 22px;
-      border-radius: 999px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      transition: 0.25s ease;
-    }
-
-    .ghost-btn {
-      background: #edf2ff;
-      color: var(--blue-dark);
-      border: 1px solid rgba(36,87,220,0.16);
-    }
-
-    .ghost-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 24px rgba(36,87,220,0.16);
-    }
-
-    .home-btn {
-      background: var(--red);
-      color: white;
-    }
-
-    .home-btn:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 12px 28px rgba(229,35,35,0.28);
-    }
-
-    .hero {
-      margin-top: 26px;
+    .page {
+      min-height: 100vh;
       background:
-        radial-gradient(circle at left top, rgba(255,255,255,0.18), transparent 22%),
-        linear-gradient(135deg, #0b2b7a 0%, #2457dc 48%, #6b1b57 100%);
-      color: white;
-      border-radius: 34px;
-      padding: 42px 42px 130px;
+        radial-gradient(circle at 20% 0%, rgba(36, 87, 220, 0.22), transparent 28%),
+        radial-gradient(circle at 85% 0%, rgba(229, 35, 35, 0.16), transparent 25%),
+        linear-gradient(180deg, #ffffff 0%, #f3f6fb 46%, #edf2fa 100%);
+    }
+
+    .top-bg {
+      background:
+        radial-gradient(circle at 18% 35%, rgba(36, 87, 220, 0.75), transparent 28%),
+        radial-gradient(circle at 82% 25%, rgba(229, 35, 35, 0.55), transparent 25%),
+        linear-gradient(135deg, #071d59 0%, #123aa0 48%, #0a1744 100%);
+      padding: 22px 0 120px;
       position: relative;
       overflow: hidden;
-      box-shadow: var(--shadow);
     }
 
-    .hero::after {
+    .top-bg::before {
       content: "";
       position: absolute;
-      left: -5%;
-      right: -5%;
-      bottom: -85px;
-      height: 170px;
-      background: var(--bg);
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      opacity: 0.45;
+    }
+
+    .top-bg::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -80px;
+      height: 180px;
+      background: #f3f6fb;
       border-radius: 50% 50% 0 0;
     }
 
-    .breadcrumbs {
-      position: relative;
-      z-index: 2;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      font-size: 14px;
-      color: rgba(255,255,255,0.82);
-      margin-bottom: 20px;
-    }
-
-    .breadcrumbs a:hover {
-      text-decoration: underline;
-    }
-
-    .hero-tag {
-      position: relative;
-      z-index: 2;
-      display: inline-block;
-      background: rgba(255,255,255,0.14);
-      border: 1px solid rgba(255,255,255,0.22);
-      padding: 10px 16px;
-      border-radius: 999px;
-      font-weight: 800;
-      text-transform: uppercase;
-      margin-bottom: 18px;
-      letter-spacing: 1px;
-      font-size: 13px;
-    }
-
-    .hero h2 {
-      position: relative;
-      z-index: 2;
-      font-size: clamp(40px, 6vw, 76px);
-      line-height: 0.95;
-      margin-bottom: 18px;
-      letter-spacing: -2px;
-    }
-
-    .hero p {
-      position: relative;
-      z-index: 2;
-      max-width: 760px;
-      font-size: 20px;
-      line-height: 1.6;
-      color: rgba(255,255,255,0.9);
-    }
-
-    .content {
+    .header {
       position: relative;
       z-index: 5;
-      margin-top: -70px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.7fr) minmax(300px, 0.9fr);
-      gap: 26px;
-      align-items: start;
+      width: min(1380px, calc(100% - 44px));
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
     }
 
-    .main-card,
-    .side-card {
-      background: var(--card);
-      border-radius: 30px;
-      box-shadow: var(--shadow);
-      padding: 28px;
-    }
-
-    .section-head {
+    .header-top {
       display: flex;
-      align-items: end;
+      align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 24px;
-      flex-wrap: wrap;
+      gap: 25px;
+      padding: 22px 30px;
     }
 
-    .section-head .small {
-      color: var(--red);
-      font-size: 13px;
-      letter-spacing: 1.2px;
-      text-transform: uppercase;
-      font-weight: 900;
-      margin-bottom: 6px;
-    }
-
-    .section-head h3 {
-      font-size: 34px;
-      color: var(--blue-dark);
-      letter-spacing: -1px;
-    }
-
-    .section-head p {
-      color: var(--muted);
-      font-size: 15px;
-    }
-
-    .tree-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+    .logo {
+      display: flex;
+      align-items: center;
       gap: 18px;
     }
 
-    .tree-box {
-      background: #f6f8fd;
-      border: 1px solid #dce6fb;
-      border-radius: 24px;
-      padding: 22px;
+    .logo img {
+      width: 82px;
+      height: 94px;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.22));
+      flex-shrink: 0;
+    }
+
+    .logo h1 {
+      color: var(--blue);
+      font-size: 42px;
+      line-height: 0.9;
+      letter-spacing: -1px;
+    }
+
+    .logo p {
+      margin-top: 8px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 19px;
+    }
+
+    .top-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .top-icons a {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #777;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 900;
       transition: 0.25s ease;
     }
 
-    .tree-box:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 14px 34px rgba(36,87,220,0.10);
-      border-color: #bfd1fb;
+    .top-icons a.blue {
+      border-radius: 9px;
+      background: var(--blue);
     }
 
-    .tree-box h4 {
-      font-size: 20px;
-      color: var(--blue-dark);
-      margin-bottom: 14px;
+    .top-icons a:hover {
+      transform: translateY(-4px) scale(1.08);
+      background: var(--red);
+      box-shadow: 0 12px 25px rgba(229, 35, 35, 0.28);
+    }
+
+    .search {
+      display: flex;
+      margin-left: 12px;
+    }
+
+    .search input {
+      width: 210px;
+      border: 0;
+      outline: none;
+      background: #e7e7e7;
+      padding: 13px 15px;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .search button {
+      border: 0;
+      background: var(--red);
+      color: white;
+      padding: 0 22px;
+      border-radius: 0 10px 10px 0;
+      text-transform: uppercase;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 30px 18px;
+      gap: 0;
+    }
+
+    .nav a {
+      padding: 14px 22px;
+      text-transform: uppercase;
+      font-weight: 900;
+      border-left: 1px solid #ddd;
+      position: relative;
+      transition: 0.2s ease;
+    }
+
+    .nav a:first-child {
+      border-left: 0;
+      background: var(--blue);
+      color: white;
+      border-radius: 13px;
+      box-shadow: 0 10px 22px rgba(36, 87, 220, 0.28);
+    }
+
+    .nav a:hover {
+      color: var(--blue);
+      transform: translateY(-3px);
+    }
+
+    .nav a:first-child:hover {
+      color: white;
+      background: var(--red);
+    }
+
+    .meteo-strip {
+      display: flex;
+      justify-content: flex-end;
+      gap: 18px;
+      padding: 0 60px 22px 30px;
+    }
+
+    .meteo-card {
+      width: 355px;
+      min-height: 62px;
+      padding: 14px 20px 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ffffff, #eef3ff);
+      color: var(--dark-blue);
       display: flex;
       align-items: center;
-      gap: 10px;
+      justify-content: center;
+      gap: 11px;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 900;
+      box-shadow: 0 16px 35px rgba(20, 40, 90, 0.16);
+      border: 1px solid rgba(36, 87, 220, 0.12);
+      position: relative;
+      overflow: hidden;
+      transition: 0.25s ease;
     }
 
-    .tree-box h4 span {
-      width: 38px;
-      height: 38px;
+    .meteo-card span {
+      width: 36px;
+      height: 36px;
       border-radius: 12px;
       display: grid;
       place-items: center;
       background: var(--blue);
       color: white;
-      font-size: 18px;
       flex-shrink: 0;
     }
 
-    .tree-box ul {
-      list-style: none;
-      display: grid;
-      gap: 10px;
-    }
-
-    .tree-box li a {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
-      border-radius: 14px;
-      color: #1f2a44;
-      transition: 0.2s ease;
-      font-size: 15px;
-    }
-
-    .tree-box li a::before {
-      content: "›";
-      color: var(--red);
-      font-weight: 900;
-      font-size: 16px;
-    }
-
-    .tree-box li a:hover {
-      background: #eaf0ff;
-      color: var(--blue);
-      transform: translateX(4px);
-    }
-
-    .quick-links {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 22px;
-    }
-
-    .quick-links a {
-      min-height: 58px;
-      padding: 0 18px;
-      border-radius: 18px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      background: linear-gradient(135deg, #2457dc, #173ea4);
-      color: white;
-      font-weight: 800;
-      box-shadow: 0 14px 30px rgba(36,87,220,0.18);
-      transition: 0.25s ease;
-    }
-
-    .quick-links a:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 18px 38px rgba(36,87,220,0.26);
-    }
-
-    .quick-links a span:last-child {
-      font-size: 22px;
-      line-height: 1;
-    }
-
-    .contact-box {
-      background: #f7f9ff;
-      border: 1px solid #dce6fb;
-      border-radius: 22px;
-      padding: 22px;
-    }
-
-    .contact-box h4 {
-      font-size: 20px;
-      color: var(--blue-dark);
-      margin-bottom: 12px;
-    }
-
-    .contact-box p {
-      color: var(--muted);
-      line-height: 1.6;
-      margin-bottom: 16px;
-      font-size: 15px;
-    }
-
-    .contact-actions {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .contact-actions a {
-      min-height: 50px;
-      border-radius: 16px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      transition: 0.25s ease;
-    }
-
-    .contact-actions .primary {
+    .meteo-card.alert span {
       background: var(--red);
+    }
+
+    .meteo-card::after {
+      content: "";
+      position: absolute;
+      left: 25%;
+      right: 25%;
+      bottom: 9px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--red);
+      transition: 0.25s ease;
+    }
+
+    .meteo-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 24px 50px rgba(20, 40, 90, 0.25);
+    }
+
+    .hero {
+      position: relative;
+      z-index: 4;
+      width: min(1180px, calc(100% - 44px));
+      margin: 70px auto 0;
       color: white;
     }
 
-    .contact-actions .primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 12px 26px rgba(229,35,35,0.22);
+    .breadcrumb {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      color: rgba(255,255,255,0.82);
+      font-weight: 700;
     }
 
-    .contact-actions .secondary {
-      background: #edf2ff;
-      color: var(--blue-dark);
-      border: 1px solid #d4e1ff;
+    .breadcrumb a:hover {
+      text-decoration: underline;
     }
 
-    .contact-actions .secondary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 10px 22px rgba(36,87,220,0.14);
+    .hero-tag {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
     }
 
-    .footer {
-      margin-top: 32px;
-      background: var(--blue-dark);
+    .hero h2 {
+      font-size: clamp(52px, 8vw, 100px);
+      line-height: 0.92;
+      letter-spacing: -4px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 800px;
+      font-size: 22px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .phone-banners {
+      position: relative;
+      z-index: 10;
+      width: min(1180px, calc(100% - 44px));
+      margin: -50px auto 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .phone-card {
+      background: linear-gradient(135deg, #4d4942, #70675e);
       color: white;
       border-radius: 28px;
-      padding: 26px 28px;
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      flex-wrap: wrap;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: 0.25s ease;
     }
 
-    .footer p {
-      color: rgba(255,255,255,0.8);
-      line-height: 1.6;
+    .phone-card:nth-child(2) {
+      background: linear-gradient(135deg, #2d3f83, #071d59);
+    }
+
+    .phone-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 30px 70px rgba(20, 40, 90, 0.25);
+    }
+
+    .phone-card h3 {
+      font-size: clamp(32px, 4vw, 54px);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 0.95;
+    }
+
+    .phone-card p {
+      margin-top: 6px;
+      font-size: 26px;
+      font-weight: 800;
+      opacity: 0.9;
+    }
+
+    .phone-number {
+      margin-top: 22px;
+      background: var(--red);
+      color: white;
+      border-radius: 20px;
+      padding: 14px 22px;
+      font-size: clamp(32px, 4vw, 58px);
+      font-weight: 900;
+      letter-spacing: 1px;
+      display: inline-block;
+      box-shadow: 0 14px 30px rgba(229, 35, 35, 0.35);
+    }
+
+    .call-now {
+      display: inline-flex;
+      margin-top: 18px;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 26px;
+      background: white;
+      color: var(--dark-blue);
+      border-radius: 999px;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: 0.25s ease;
+    }
+
+    .call-now:hover {
+      background: var(--red);
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    .content {
+      width: min(1180px, calc(100% - 44px));
+      margin: 60px auto 80px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .main-panel,
+    .side-panel {
+      background: white;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+    }
+
+    .section-title {
+      margin-bottom: 28px;
+      border-bottom: 2px solid #dce6ff;
+      padding-bottom: 16px;
+    }
+
+    .section-title span {
+      color: var(--red);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      font-size: 13px;
+    }
+
+    .section-title h3 {
+      color: var(--dark-blue);
+      font-size: 42px;
+      letter-spacing: -1px;
+      margin-top: 6px;
+    }
+
+    .site-tree {
+      display: grid;
+      gap: 14px;
+    }
+
+    details {
+      border: 1px solid #dce6ff;
+      border-radius: 20px;
+      background: #f8faff;
+      overflow: hidden;
+      transition: 0.25s ease;
+    }
+
+    details[open] {
+      background: white;
+      box-shadow: 0 14px 32px rgba(36, 87, 220, 0.08);
+    }
+
+    summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 18px 20px;
+      font-size: 19px;
+      font-weight: 900;
+      color: var(--dark-blue);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::before {
+      content: "+";
+      width: 32px;
+      height: 32px;
+      border-radius: 10px;
+      background: var(--blue);
+      color: white;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      font-weight: 900;
+    }
+
+    details[open] summary::before {
+      content: "−";
+      background: var(--red);
+    }
+
+    .tree-list {
+      padding: 0 22px 20px 64px;
+      list-style: none;
+      display: grid;
+      gap: 9px;
+    }
+
+    .tree-list li a {
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      color: #23304a;
+      font-weight: 700;
+      transition: 0.2s ease;
+    }
+
+    .tree-list li a::before {
+      content: "›";
+      color: var(--red);
+      font-size: 20px;
+      font-weight: 900;
+    }
+
+    .tree-list li a:hover {
+      background: #edf3ff;
+      color: var(--blue);
+      transform: translateX(5px);
+    }
+
+    .side-menu {
+      display: grid;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .side-menu a {
+      min-height: 50px;
+      background: var(--blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      padding: 0 18px;
+      border-radius: 14px;
+      text-transform: uppercase;
+      font-weight: 900;
+      transition: 0.25s ease;
+    }
+
+    .side-menu a:hover {
+      background: var(--red);
+      transform: translateX(5px);
+    }
+
+    .recommend-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #dce6ff;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .numbers {
+      display: flex;
+      gap: 4px;
+    }
+
+    .numbers span {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--blue);
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .numbers span:first-child {
+      background: var(--red);
+    }
+
+    .promo-card {
+      border: 1px solid #dce6ff;
+      border-radius: 22px;
+      padding: 24px;
+      text-align: center;
+      background: #f8faff;
+      transition: 0.25s ease;
+      margin-bottom: 16px;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 34px rgba(36, 87, 220, 0.12);
+    }
+
+    .promo-card img {
+      width: 92px;
+      height: 105px;
+      object-fit: contain;
+      opacity: 0.82;
+      margin-bottom: 14px;
+    }
+
+    .promo-card h4 {
+      color: var(--dark-blue);
+      text-transform: uppercase;
+      font-size: 18px;
+    }
+
+    .promo-card p {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.5;
       font-size: 14px;
     }
 
+    .footer {
+      background: var(--red);
+      color: white;
+      padding: 45px min(80px, 6vw);
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .footer-brand img {
+      width: 58px;
+      height: 68px;
+      object-fit: contain;
+      background: white;
+      border-radius: 10px;
+      padding: 4px;
+    }
+
+    .footer h4 {
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .footer p,
+    .footer a {
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .footer a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 20px;
+    }
+
     @media (max-width: 1100px) {
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .top-icons {
+        justify-content: flex-start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .meteo-strip {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding-right: 30px;
+      }
+
+      .phone-banners {
+        grid-template-columns: 1fr;
+      }
+
       .content {
         grid-template-columns: 1fr;
       }
 
-      .tree-grid {
+      .footer {
         grid-template-columns: 1fr;
       }
     }
 
     @media (max-width: 700px) {
-      .page-wrap {
-        width: calc(100% - 20px);
-        margin-top: 10px;
-      }
-
       .header,
-      .hero,
-      .main-card,
-      .side-card,
-      .footer {
+      .main-panel,
+      .side-panel {
         border-radius: 22px;
       }
 
-      .header {
-        padding: 18px;
-      }
-
-      .brand img {
+      .logo img {
         width: 62px;
         height: 72px;
       }
 
-      .brand h1 {
-        font-size: 24px;
+      .logo h1 {
+        font-size: 32px;
       }
 
-      .hero {
-        padding: 28px 20px 110px;
+      .logo p {
+        font-size: 14px;
+      }
+
+      .search {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .search input {
+        width: 100%;
+      }
+
+      .nav {
+        flex-direction: column;
+        padding: 0 20px 20px;
+      }
+
+      .nav a {
+        border-left: 0;
+        border-top: 1px solid #ddd;
+      }
+
+      .meteo-strip {
+        flex-direction: column;
+      }
+
+      .meteo-card {
+        width: 100%;
+      }
+
+      .hero h2 {
+        font-size: 54px;
       }
 
       .hero p {
-        font-size: 17px;
+        font-size: 18px;
       }
 
-      .main-card,
-      .side-card {
-        padding: 20px;
+      .phone-card {
+        padding: 24px;
       }
 
-      .section-head h3 {
-        font-size: 28px;
+      .section-title h3 {
+        font-size: 32px;
+      }
+
+      .tree-list {
+        padding-left: 20px;
       }
     }
   </style>
 </head>
+
 <body>
-  <div class="page-wrap">
+  <div class="page">
 
-    <header class="header">
-      <a href="index.html" class="brand">
-        <img src="herbopatow.png?v=2" alt="Herb Powiatu Opatowskiego">
-        <div>
-          <h1>Opatów</h1>
-          <p>Starostwo Powiatowe</p>
+    <section class="top-bg">
+      <header class="header">
+        <div class="header-top">
+          <a href="index.html" class="logo">
+            <img src="herbopatow.png?v=2" alt="Herb Powiatu Opatowskiego">
+            <div>
+              <h1>Opatów</h1>
+              <p>Starostwo Powiatowe</p>
+            </div>
+          </a>
+
+          <div class="top-icons">
+            <a href="index.html" title="Strona główna">⌂</a>
+            <a href="mapa-strony.html" title="Mapa strony">▣</a>
+            <a href="#" title="Kontakt">✉</a>
+            <a href="#" title="RSS">RSS</a>
+
+            <a href="#" class="blue">■</a>
+            <a href="#" class="blue">♿</a>
+            <a href="#" class="blue">☝</a>
+            <a href="#" class="blue">♫</a>
+            <a href="#" class="blue">●</a>
+
+            <form class="search">
+              <input type="text" placeholder="Szukaj..." />
+              <button>Szukaj</button>
+            </form>
+          </div>
         </div>
-      </a>
 
-      <div class="header-actions">
-        <a href="index.html" class="ghost-btn">← Wróć na stronę główną</a>
-        <a href="#mapa" class="home-btn">Mapa strony</a>
+        <nav class="nav">
+          <a href="index.html">🏠</a>
+          <a href="#">Dostępność</a>
+          <a href="#">Aktualności</a>
+          <a href="#">Powiat</a>
+          <a href="#">Mieszkaniec</a>
+          <a href="#">Turysta</a>
+          <a href="#">Kontakt</a>
+        </nav>
+
+        <div class="meteo-strip">
+          <a href="#" class="meteo-card">
+            <span>🌦️</span>
+            <strong>Archiwum meteorologiczne</strong>
+          </a>
+
+          <a href="#" class="meteo-card alert">
+            <span>⚠️</span>
+            <strong>Aktualne ostrzeżenia meteorologiczne</strong>
+          </a>
+        </div>
+      </header>
+
+      <div class="hero">
+        <div class="breadcrumb">
+          <a href="index.html">Strona główna</a>
+          <span>›</span>
+          <span>Mapa strony</span>
+        </div>
+
+        <span class="hero-tag">Nawigacja serwisu</span>
+        <h2>Mapa strony</h2>
+        <p>
+          Pełna struktura serwisu Powiatu Opatowskiego w nowej, czytelnej formie.
+          Znajdź szybko aktualności, kontakt, ostrzeżenia, informacje dla mieszkańca i turysty.
+        </p>
       </div>
-    </header>
-
-    <section class="hero">
-      <div class="breadcrumbs">
-        <a href="index.html">Strona główna</a>
-        <span>›</span>
-        <span>Mapa strony</span>
-      </div>
-
-      <div class="hero-tag">Szybka nawigacja</div>
-      <h2>Mapa strony</h2>
-      <p>
-        Tu masz wszystkie najważniejsze działy w jednym miejscu. 
-        Strona jest czytelna, nowoczesna i dużo wygodniejsza niż stara wersja.
-      </p>
     </section>
 
-    <section class="content" id="mapa">
-      <div class="main-card">
-        <div class="section-head">
-          <div>
-            <div class="small">Pełna struktura</div>
-            <h3>Wszystkie sekcje serwisu</h3>
-          </div>
-          <p>Kliknij w dział, żeby przejść dalej</p>
+    <section class="phone-banners">
+      <div class="phone-card">
+        <h3>Wydawanie uprawnień</h3>
+        <p>do kierowania pojazdami</p>
+        <div class="phone-number">(+48) 797-994-735</div>
+        <br>
+        <a href="tel:+48797994735" class="call-now">📞 Zadzwoń teraz</a>
+      </div>
+
+      <div class="phone-card">
+        <h3>Rejestracja pojazdów</h3>
+        <p>wydział komunikacji</p>
+        <div class="phone-number">(+48) 797-994-705</div>
+        <br>
+        <a href="tel:+48797994705" class="call-now">📞 Zadzwoń teraz</a>
+      </div>
+    </section>
+
+    <main class="content">
+      <section class="main-panel">
+        <div class="section-title">
+          <span>SP Opatów</span>
+          <h3>Mapa strony</h3>
         </div>
 
-        <div class="tree-grid">
-          <div class="tree-box">
-            <h4><span>📰</span> Aktualności</h4>
-            <ul>
-              <li><a href="#">Aktualności główne</a></li>
+        <div class="site-tree">
+          <details open>
+            <summary>Strona główna</summary>
+            <ul class="tree-list">
+              <li><a href="index.html">Powrót do strony głównej</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Aktualności</summary>
+            <ul class="tree-list">
+              <li><a href="#">Samorząd</a></li>
               <li><a href="#">Komunikaty</a></li>
+              <li><a href="#">Poradniki</a></li>
+              <li><a href="#">Mieszkaniec</a></li>
+              <li><a href="#">Turysta</a></li>
+              <li><a href="#">Przedsiębiorca</a></li>
+              <li><a href="#">Projekty</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Portal</summary>
+            <ul class="tree-list">
+              <li><a href="#">Dostępność</a></li>
+              <li><a href="#">Powiat</a></li>
+              <li><a href="#">Mieszkaniec</a></li>
+              <li><a href="#">Turysta</a></li>
+              <li><a href="#">Aktualne ostrzeżenia</a></li>
+              <li><a href="#">Kontakt</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Galerie zdjęć</summary>
+            <ul class="tree-list">
+              <li><a href="#">Ogólne</a></li>
+              <li><a href="#">Miasto</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Kalendarz wydarzeń</summary>
+            <ul class="tree-list">
+              <li><a href="#">Wiadomości</a></li>
+              <li><a href="#">Kultura</a></li>
+              <li><a href="#">Sport i rekreacja</a></li>
+            </ul>
+          </details>
+
+          <details open>
+            <summary>Baza inwestycji</summary>
+            <ul class="tree-list">
+              <li><a href="#">Drogi i komunikacja</a></li>
+              <li><a href="#">Infrastruktura techniczna</a></li>
+              <li><a href="#">Edukacja</a></li>
+              <li><a href="#">Sport i rekreacja</a></li>
+              <li><a href="#">Kultura i dziedzictwo</a></li>
+              <li><a href="#">Budżet partycypacyjny</a></li>
+              <li><a href="#">Pozostałe</a></li>
+              <li><a href="#">Baza inwestycji - mapa</a></li>
+            </ul>
+          </details>
+
+          <details>
+            <summary>Baza dokumentów</summary>
+            <ul class="tree-list">
+              <li><a href="#">Uchwały</a></li>
               <li><a href="#">Ogłoszenia</a></li>
-              <li><a href="#">Wydarzenia</a></li>
+              <li><a href="#">Dokumenty do pobrania</a></li>
             </ul>
-          </div>
-
-          <div class="tree-box">
-            <h4><span>🏛️</span> Powiat</h4>
-            <ul>
-              <li><a href="#">O powiecie</a></li>
-              <li><a href="#">Władze powiatu</a></li>
-              <li><a href="#">Jednostki organizacyjne</a></li>
-              <li><a href="#">Inwestycje</a></li>
-            </ul>
-          </div>
-
-          <div class="tree-box">
-            <h4><span>👤</span> Mieszkaniec</h4>
-            <ul>
-              <li><a href="#">Sprawy urzędowe</a></li>
-              <li><a href="#">Rejestracja pojazdów</a></li>
-              <li><a href="#">Wydawanie uprawnień</a></li>
-              <li><a href="#">Pomoc prawna</a></li>
-              <li><a href="#">Dyżury aptek</a></li>
-            </ul>
-          </div>
-
-          <div class="tree-box">
-            <h4><span>🧳</span> Turysta</h4>
-            <ul>
-              <li><a href="#">Atrakcje turystyczne</a></li>
-              <li><a href="#">Zabytki</a></li>
-              <li><a href="#">Noclegi</a></li>
-              <li><a href="#">Szlaki i przyroda</a></li>
-            </ul>
-          </div>
-
-          <div class="tree-box">
-            <h4><span>♿</span> Dostępność</h4>
-            <ul>
-              <li><a href="#">Deklaracja dostępności</a></li>
-              <li><a href="#">Ułatwienia dostępu</a></li>
-              <li><a href="#">Kontakt dla osób z niepełnosprawnościami</a></li>
-            </ul>
-          </div>
-
-          <div class="tree-box">
-            <h4><span>📞</span> Kontakt</h4>
-            <ul>
-              <li><a href="#">Dane urzędu</a></li>
-              <li><a href="#">Wydziały i telefony</a></li>
-              <li><a href="#">Mapa dojazdu</a></li>
-              <li><a href="#">Formularz kontaktowy</a></li>
-            </ul>
-          </div>
+          </details>
         </div>
-      </div>
+      </section>
 
-      <aside class="side-card">
-        <div class="section-head">
-          <div>
-            <div class="small">Skróty</div>
-            <h3>Najważniejsze linki</h3>
+      <aside class="side-panel">
+        <div class="side-menu">
+          <a href="#">Dostępność</a>
+          <a href="#">Powiat</a>
+          <a href="#">Mieszkaniec</a>
+          <a href="#">Turysta</a>
+          <a href="#">Aktualne ostrzeżenia</a>
+          <a href="#">Kontakt</a>
+        </div>
+
+        <div class="recommend-title">
+          <span>Polecamy</span>
+          <div class="numbers">
+            <span>1</span>
+            <span>2</span>
+            <span>3</span>
           </div>
         </div>
 
-        <div class="quick-links">
-          <a href="index.html"><span>Strona główna</span><span>›</span></a>
-          <a href="#"><span>Aktualne ostrzeżenia</span><span>›</span></a>
-          <a href="#"><span>Archiwum meteorologiczne</span><span>›</span></a>
-          <a href="#"><span>Rejestracja pojazdów</span><span>›</span></a>
-          <a href="#"><span>Wydawanie uprawnień</span><span>›</span></a>
-        </div>
+        <a href="#" class="promo-card">
+          <img src="herbopatow.png?v=2" alt="Herb">
+          <h4>Władze powiatu</h4>
+          <p>Informacje o władzach oraz najważniejszych jednostkach powiatu.</p>
+        </a>
 
-        <div class="contact-box">
-          <h4>Potrzebujesz pomocy?</h4>
-          <p>
-            Jeśli użytkownik nie może czegoś znaleźć, z tej strony szybko przejdzie
-            do najważniejszych działów lub wróci na stronę główną.
-          </p>
-
-          <div class="contact-actions">
-            <a href="index.html" class="primary">Wróć na stronę główną</a>
-            <a href="#" class="secondary">Przejdź do kontaktu</a>
-          </div>
-        </div>
+        <a href="#" class="promo-card">
+          <img src="herbopatow.png?v=2" alt="Herb">
+          <h4>Monitoring wizyjny</h4>
+          <p>Informacje dotyczące bezpieczeństwa i monitoringu.</p>
+        </a>
       </aside>
-    </section>
+    </main>
 
     <footer class="footer">
-      <div>
-        <strong>Starostwo Powiatowe w Opatowie</strong>
-        <p>ul. Henryka Sienkiewicza 17, 27-500 Opatów</p>
+      <div class="footer-brand">
+        <img src="herbopatow.png?v=2" alt="Herb">
+        <div>
+          <h4>Starostwo Powiatowe</h4>
+          <p>w Opatowie</p>
+        </div>
       </div>
 
       <div>
-        <p>To jest nowa, uproszczona i nowocześniejsza wersja mapy strony.</p>
+        <h4>Kontakt</h4>
+        <p>ul. Henryka Sienkiewicza 17, 27-500 Opatów</p>
+        <p>Telefon: 00 000 00 00</p>
+        <p>Email: kontakt@opatow.pl</p>
+      </div>
+
+      <div>
+        <h4>Szybkie linki</h4>
+        <div class="footer-links">
+          <a href="index.html">Strona główna</a>
+          <a href="#">Aktualności</a>
+          <a href="#">Powiat</a>
+          <a href="#">Mieszkaniec</a>
+          <a href="#">Turysta</a>
+          <a href="#">Kontakt</a>
+        </div>
       </div>
     </footer>
 
