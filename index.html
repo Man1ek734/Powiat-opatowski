@@ -1037,12 +1037,55 @@
     width: 100%;
   }
 }
+    /* USUNIĘCIE PŁYWAJĄCEGO PRZYCISKU DOSTĘPNOŚCI */
+.floating-access,
+.access-floating {
+  display: none !important;
+}
+
+/* PRZYKLEJENIE METEO DO GÓRNEGO MENU */
+.weather-buttons {
+  position: fixed !important;
+  top: 180px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  z-index: 90 !important;
+  width: min(740px, calc(100% - 40px)) !important;
+}
+
+/* żeby wyglądało jak doczepione pod menu */
+.weather-buttons a {
+  border-radius: 0 0 14px 14px !important;
+  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.16) !important;
+}
+
+/* header zawsze nad tymi przyciskami */
+.header {
+  z-index: 100 !important;
+}
+
+/* żeby tekst główny nie wchodził pod meteo */
+.hero-content {
+  padding-top: 170px !important;
+}
+
+/* telefon */
+@media (max-width: 700px) {
+  .weather-buttons {
+    top: 175px !important;
+    flex-direction: column !important;
+    width: calc(100% - 40px) !important;
+  }
+
+  .hero-content {
+    padding-top: 260px !important;
+  }
+}
   </style>
 </head>
 
 <body>
 
-  <div class="floating-access">♿</div>
   <div class="floating-settings">⚙</div>
 
   <header class="header">
