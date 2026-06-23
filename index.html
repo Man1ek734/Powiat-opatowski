@@ -824,6 +824,158 @@
         flex-direction: column;
       }
     }
+    /* NAPRAWA UKŁADU — WKLEJ NA SAM KONIEC CSS */
+
+.weather-buttons {
+  display: none !important;
+}
+
+.floating-access,
+.access-floating {
+  display: none !important;
+}
+
+.header {
+  width: min(1480px, calc(100% - 44px)) !important;
+  top: 22px !important;
+  border-radius: 28px !important;
+  z-index: 999 !important;
+}
+
+.header-top {
+  padding: 22px 30px !important;
+}
+
+.logo h1 {
+  font-size: 42px !important;
+}
+
+.logo p {
+  font-size: 19px !important;
+}
+
+.fake-herb {
+  width: 78px !important;
+  height: 88px !important;
+}
+
+.hero {
+  min-height: 900px !important;
+  padding-top: 260px !important;
+}
+
+.hero-content {
+  width: min(1250px, calc(100% - 50px)) !important;
+  padding-top: 130px !important;
+}
+
+.hero-content h2 {
+  font-size: clamp(58px, 8vw, 112px) !important;
+  line-height: 0.92 !important;
+  margin-bottom: 22px !important;
+}
+
+.hero-content p {
+  max-width: 760px !important;
+  font-size: 22px !important;
+  line-height: 1.5 !important;
+}
+
+.hero-actions {
+  position: relative !important;
+  z-index: 20 !important;
+  margin-top: 34px !important;
+  margin-bottom: 110px !important;
+}
+
+.quick {
+  width: min(1300px, calc(100% - 44px)) !important;
+  margin: -65px auto 0 !important;
+  grid-template-columns: repeat(6, 1fr) !important;
+  gap: 18px !important;
+  z-index: 30 !important;
+}
+
+.quick-card {
+  min-height: 195px !important;
+  padding: 26px 16px !important;
+  border-radius: 26px !important;
+}
+
+.quick-card.big {
+  grid-column: span 2 !important;
+}
+
+.icon {
+  width: 68px !important;
+  height: 68px !important;
+  margin-bottom: 16px !important;
+}
+
+.quick-card h3 {
+  font-size: 15px !important;
+}
+
+.quick-card p {
+  font-size: 13px !important;
+}
+
+.services {
+  margin-top: 100px !important;
+}
+
+.service-grid {
+  grid-template-columns: repeat(2, 1fr) !important;
+}
+
+.service-card {
+  min-height: 360px !important;
+}
+
+@media (max-width: 1150px) {
+  .quick {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .quick-card.big {
+    grid-column: span 1 !important;
+  }
+}
+
+@media (max-width: 900px) {
+  .service-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+@media (max-width: 700px) {
+  .header {
+    width: calc(100% - 22px) !important;
+    top: 12px !important;
+  }
+
+  .hero {
+    min-height: 850px !important;
+    padding-top: 190px !important;
+  }
+
+  .hero-content {
+    padding-top: 180px !important;
+  }
+
+  .hero-content h2 {
+    font-size: 52px !important;
+  }
+
+  .quick {
+    grid-template-columns: 1fr !important;
+    margin-top: -45px !important;
+  }
+
+  .hero-actions {
+    margin-bottom: 70px !important;
+  }
+}
   </style>
 </head>
 
