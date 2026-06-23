@@ -1082,6 +1082,24 @@
     padding-top: 120px !important;
   }
 }
+    /* PRZESUNIĘCIE METEO W PRAWO */
+
+.meteo-strip {
+  justify-content: flex-end !important;
+  padding-left: 30px !important;
+  padding-right: 60px !important;
+}
+
+/* gdyby było za bardzo w prawo, zmniejsz 95px np. na 60px */
+/* gdyby było dalej za mało w prawo, zwiększ 95px np. na 130px */
+
+@media (max-width: 1150px) {
+  .meteo-strip {
+    justify-content: center !important;
+    padding-left: 25px !important;
+    padding-right: 25px !important;
+  }
+}
   </style>
 </head>
 
