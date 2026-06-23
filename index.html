@@ -976,6 +976,112 @@
     margin-bottom: 70px !important;
   }
 }
+    /* ŁADNE PRZYCISKI METEO POD MENU */
+
+.header {
+  overflow: visible !important;
+}
+
+.meteo-strip {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  padding: 0 30px 22px;
+  margin-top: -4px;
+}
+
+.meteo-card {
+  position: relative;
+  overflow: hidden;
+  width: min(380px, 100%);
+  min-height: 64px;
+  padding: 14px 22px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #ffffff, #eef3ff);
+  color: #071d59;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: 900;
+  box-shadow: 0 16px 35px rgba(20, 40, 90, 0.16);
+  border: 1px solid rgba(36, 87, 220, 0.12);
+  transition: 0.25s ease;
+}
+
+.meteo-card span {
+  width: 38px;
+  height: 38px;
+  border-radius: 12px;
+  display: grid;
+  place-items: center;
+  background: #2457dc;
+  color: white;
+  flex-shrink: 0;
+}
+
+.meteo-card.alert span {
+  background: #e52323;
+}
+
+.meteo-card::after {
+  content: "";
+  position: absolute;
+  left: 22%;
+  right: 22%;
+  bottom: 10px;
+  height: 3px;
+  border-radius: 999px;
+  background: #e52323;
+  transition: 0.25s ease;
+}
+
+.meteo-card:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 24px 50px rgba(20, 40, 90, 0.25);
+  background: linear-gradient(135deg, #ffffff, #dfe8ff);
+}
+
+.meteo-card:hover::after {
+  left: 14%;
+  right: 14%;
+}
+
+.meteo-card:active {
+  transform: scale(0.96);
+}
+
+/* więcej miejsca pod większy header, żeby nic nie nachodziło */
+.hero {
+  padding-top: 340px !important;
+  min-height: 930px !important;
+}
+
+.hero-content {
+  padding-top: 95px !important;
+}
+
+/* telefon */
+@media (max-width: 900px) {
+  .meteo-strip {
+    flex-direction: column;
+    padding: 0 22px 22px;
+  }
+
+  .meteo-card {
+    width: 100%;
+  }
+
+  .hero {
+    padding-top: 410px !important;
+  }
+
+  .hero-content {
+    padding-top: 120px !important;
+  }
+}
   </style>
 </head>
 
