@@ -16,6 +16,7 @@
       font-family: Arial, Helvetica, sans-serif;
       background: #f3f6fb;
       color: #111827;
+      overflow-x: hidden;
     }
 
     a {
@@ -33,13 +34,18 @@
       top: 22px;
       left: 50%;
       transform: translateX(-50%);
-      width: min(1480px, calc(100% - 40px));
-      background: rgba(255, 255, 255, 0.94);
+      width: min(1280px, calc(100% - 44px));
+      background: rgba(255, 255, 255, 0.95);
       backdrop-filter: blur(16px);
       border-radius: 28px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
       z-index: 100;
       overflow: hidden;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .header:hover {
+      box-shadow: 0 30px 75px rgba(0, 0, 0, 0.26);
     }
 
     .header-top {
@@ -54,6 +60,24 @@
       display: flex;
       align-items: center;
       gap: 18px;
+      transition: transform 0.3s ease, filter 0.3s ease;
+    }
+
+    .logo:hover {
+      transform: translateY(-4px) scale(1.03);
+      filter: drop-shadow(0 14px 20px rgba(36, 87, 220, 0.3));
+    }
+
+    .logo:hover .fake-herb {
+      animation: logoWiggle 0.75s ease;
+    }
+
+    @keyframes logoWiggle {
+      0% { transform: rotate(0deg) scale(1); }
+      25% { transform: rotate(-6deg) scale(1.08); }
+      50% { transform: rotate(6deg) scale(1.1); }
+      75% { transform: rotate(-3deg) scale(1.05); }
+      100% { transform: rotate(0deg) scale(1); }
     }
 
     .fake-herb {
@@ -62,7 +86,7 @@
       border-radius: 12px 12px 22px 22px;
       background: linear-gradient(135deg, #2457dc 0 50%, #e52323 50% 100%);
       border: 4px solid white;
-      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.18);
+      box-shadow: 0 8px 22px rgba(0, 0, 0, 0.2);
       position: relative;
       flex-shrink: 0;
     }
@@ -71,7 +95,7 @@
       content: "✦";
       position: absolute;
       left: 50%;
-      top: 50%;
+      top: 45%;
       transform: translate(-50%, -50%);
       color: white;
       font-size: 34px;
@@ -106,7 +130,7 @@
     .header-tools {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 14px;
     }
 
     .small-icons,
@@ -115,20 +139,63 @@
       gap: 8px;
     }
 
+    .small-icons button,
+    .access-icons button,
+    .search button,
+    .nav a {
+      position: relative;
+      overflow: hidden;
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease,
+        color 0.25s ease,
+        filter 0.25s ease;
+    }
+
+    .small-icons button::before,
+    .access-icons button::before,
+    .search button::before,
+    .nav a::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -120%;
+      width: 80%;
+      height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+      transform: skewX(-25deg);
+      transition: 0.55s;
+    }
+
+    .small-icons button:hover::before,
+    .access-icons button:hover::before,
+    .search button:hover::before,
+    .nav a:hover::before {
+      left: 140%;
+    }
+
     .small-icons button {
-      width: 36px;
-      height: 36px;
+      width: 34px;
+      height: 34px;
       border: 0;
       border-radius: 50%;
       background: #777;
       color: white;
       cursor: pointer;
-      font-weight: 700;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .small-icons button:hover {
+      transform: translateY(-5px) scale(1.12) rotate(-4deg);
+      background: #2457dc;
+      box-shadow: 0 12px 25px rgba(36, 87, 220, 0.35);
     }
 
     .access-icons button {
-      width: 42px;
-      height: 42px;
+      width: 38px;
+      height: 38px;
       border: 0;
       border-radius: 9px;
       background: #2457dc;
@@ -137,10 +204,15 @@
       font-weight: 900;
     }
 
-    .small-icons button:hover,
     .access-icons button:hover {
-      transform: translateY(-3px);
-      filter: brightness(1.12);
+      transform: translateY(-5px) scale(1.12);
+      background: #e52323;
+      box-shadow: 0 12px 25px rgba(229, 35, 35, 0.35);
+    }
+
+    .access-icons button:nth-child(even):hover,
+    .small-icons button:nth-child(even):hover {
+      transform: translateY(-5px) scale(1.12) rotate(4deg);
     }
 
     .search {
@@ -154,6 +226,13 @@
       background: #e7e7e7;
       padding: 14px 16px;
       border-radius: 10px 0 0 10px;
+      transition: box-shadow 0.25s ease, background 0.25s ease, width 0.25s ease;
+    }
+
+    .search input:focus {
+      background: white;
+      box-shadow: 0 0 0 3px rgba(36, 87, 220, 0.22);
+      width: 250px;
     }
 
     .search button {
@@ -165,6 +244,12 @@
       text-transform: uppercase;
       font-weight: 900;
       cursor: pointer;
+    }
+
+    .search button:hover {
+      background: #c91616;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(229, 35, 35, 0.35);
     }
 
     .menu-button {
@@ -186,41 +271,48 @@
     }
 
     .nav a {
-      position: relative;
-      padding: 14px 24px;
+      padding: 14px 22px;
       text-transform: uppercase;
       font-weight: 900;
       border-left: 1px solid #ddd;
     }
 
-    .nav a:first-child {
-      border-left: 0;
+    .nav a:hover {
+      background: rgba(36, 87, 220, 0.09);
+      color: #2457dc;
+      border-radius: 12px;
+      transform: translateY(-3px);
+    }
+
+    .nav a.home-link {
+      font-size: 22px;
+      padding: 11px 22px;
       background: #2457dc;
       color: white;
-      border-radius: 12px;
+      border-radius: 13px;
+      border-left: 0;
+      box-shadow: 0 10px 22px rgba(36, 87, 220, 0.28);
     }
 
-    .nav a::after {
-      content: "";
-      position: absolute;
-      left: 24px;
-      right: 24px;
-      bottom: 7px;
-      height: 2px;
+    .nav a.home-link:hover {
+      animation: homeBounce 0.55s ease;
       background: #e52323;
-      transform: scaleX(0);
-      transition: 0.2s;
+      color: white;
+      box-shadow: 0 14px 30px rgba(229, 35, 35, 0.35);
     }
 
-    .nav a:hover::after {
-      transform: scaleX(1);
+    @keyframes homeBounce {
+      0% { transform: translateY(0) scale(1); }
+      35% { transform: translateY(-7px) scale(1.1); }
+      65% { transform: translateY(2px) scale(0.96); }
+      100% { transform: translateY(-3px) scale(1); }
     }
 
     .hero {
-      min-height: 820px;
+      min-height: 760px;
       position: relative;
       overflow: hidden;
-      padding-top: 260px;
+      padding-top: 250px;
       background:
         radial-gradient(circle at 18% 35%, rgba(36, 87, 220, 0.75), transparent 28%),
         radial-gradient(circle at 82% 25%, rgba(229, 35, 35, 0.6), transparent 25%),
@@ -250,46 +342,13 @@
       z-index: 1;
     }
 
-    .weather-buttons {
-      position: absolute;
-      top: 185px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 5;
-      width: min(860px, calc(100% - 40px));
-      display: flex;
-      gap: 18px;
-    }
-
-    .weather-buttons a {
-      flex: 1;
-      background: white;
-      text-align: center;
-      padding: 20px 24px;
-      border-radius: 0 0 14px 14px;
-      text-transform: uppercase;
-      font-weight: 900;
-      box-shadow: 0 18px 35px rgba(0, 0, 0, 0.2);
-      position: relative;
-    }
-
-    .weather-buttons a::after {
-      content: "";
-      position: absolute;
-      left: 25%;
-      right: 25%;
-      bottom: 12px;
-      height: 2px;
-      background: #e52323;
-    }
-
     .hero-content {
       position: relative;
       z-index: 3;
-      width: min(1250px, calc(100% - 50px));
+      width: min(1050px, calc(100% - 50px));
       margin: 0 auto;
       color: white;
-      padding-top: 120px;
+      padding-top: 70px;
     }
 
     .hero-content .tag {
@@ -305,7 +364,7 @@
     }
 
     .hero-content h2 {
-      font-size: clamp(50px, 8vw, 110px);
+      font-size: clamp(50px, 8vw, 100px);
       line-height: 0.92;
       letter-spacing: -4px;
       margin-bottom: 22px;
@@ -334,6 +393,7 @@
       border-radius: 999px;
       text-transform: uppercase;
       font-weight: 900;
+      transition: 0.25s ease;
     }
 
     .btn-red {
@@ -341,14 +401,24 @@
       color: white;
     }
 
+    .btn-red:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 35px rgba(229, 35, 35, 0.35);
+    }
+
     .btn-white {
       background: white;
       color: #071d59;
     }
 
+    .btn-white:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 18px 35px rgba(255,255,255,0.25);
+    }
+
     .arrow {
       position: absolute;
-      top: 51%;
+      top: 48%;
       transform: translateY(-50%);
       z-index: 4;
       width: 58px;
@@ -359,6 +429,12 @@
       color: white;
       font-size: 64px;
       cursor: pointer;
+      transition: 0.25s ease;
+    }
+
+    .arrow:hover {
+      background: rgba(255,255,255,0.38);
+      transform: translateY(-50%) scale(1.06);
     }
 
     .arrow.left {
@@ -372,20 +448,20 @@
     .quick {
       position: relative;
       z-index: 10;
-      width: min(1300px, calc(100% - 44px));
-      margin: -115px auto 0;
+      width: min(980px, calc(100% - 44px));
+      margin: -120px auto 0;
       display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 18px;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 16px;
     }
 
     .quick-card {
-      min-height: 180px;
+      min-height: 175px;
       background: rgba(255,255,255,0.97);
-      border-radius: 26px;
-      padding: 24px 16px;
+      border-radius: 24px;
+      padding: 22px 14px;
       text-align: center;
-      box-shadow: 0 22px 50px rgba(20, 40, 90, 0.18);
+      box-shadow: 0 22px 50px rgba(20, 40, 90, 0.16);
       transition: 0.25s;
     }
 
@@ -399,21 +475,21 @@
     }
 
     .icon {
-      width: 68px;
-      height: 68px;
-      margin: 0 auto 16px;
-      border-radius: 18px;
+      width: 62px;
+      height: 62px;
+      margin: 0 auto 14px;
+      border-radius: 17px;
       display: grid;
       place-items: center;
       color: white;
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 900;
     }
 
     .red { background: #e52323; }
     .green { background: #20b85a; }
     .blue { background: #19a8e8; }
-    .darkred { background: #d70013; font-size: 42px; font-family: Georgia, serif; }
+    .darkred { background: #d70013; font-size: 38px; font-family: Georgia, serif; }
     .outline {
       background: white;
       color: #12549d;
@@ -423,7 +499,7 @@
     .orange { background: #ff981a; }
 
     .quick-card h3 {
-      font-size: 15px;
+      font-size: 14px;
       text-transform: uppercase;
       line-height: 1.25;
       margin-bottom: 8px;
@@ -431,13 +507,13 @@
 
     .quick-card p {
       color: #6b7280;
-      font-size: 13px;
+      font-size: 12px;
       line-height: 1.4;
     }
 
     .services,
     .news {
-      width: min(1300px, calc(100% - 44px));
+      width: min(1200px, calc(100% - 44px));
       margin: 80px auto 0;
     }
 
@@ -466,7 +542,7 @@
     }
 
     .service-card {
-      min-height: 260px;
+      min-height: 330px;
       border-radius: 32px;
       padding: 36px;
       color: white;
@@ -496,14 +572,23 @@
       background: rgba(255,255,255,0.12);
     }
 
+    .service-card span,
+    .service-card h3,
+    .service-card p,
+    .service-phone,
+    .service-call {
+      position: relative;
+      z-index: 2;
+    }
+
     .service-card span {
       font-weight: 900;
       opacity: 0.75;
     }
 
     .service-card h3 {
-      margin-top: 70px;
-      font-size: clamp(34px, 5vw, 62px);
+      margin-top: 50px;
+      font-size: clamp(34px, 5vw, 56px);
       line-height: 0.95;
       text-transform: uppercase;
       letter-spacing: 4px;
@@ -515,6 +600,42 @@
       font-size: 17px;
       line-height: 1.5;
       max-width: 520px;
+    }
+
+    .service-phone {
+      display: inline-block;
+      margin-top: 24px;
+      padding: 14px 22px;
+      border-radius: 18px;
+      background: #e52323;
+      color: white;
+      font-size: clamp(26px, 3vw, 42px);
+      font-weight: 900;
+      letter-spacing: 1px;
+      box-shadow: 0 14px 30px rgba(229, 35, 35, 0.35);
+    }
+
+    .service-call {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 20px;
+      min-height: 54px;
+      padding: 0 28px;
+      border-radius: 999px;
+      background: white;
+      color: #071d59;
+      font-weight: 900;
+      text-transform: uppercase;
+      box-shadow: 0 14px 30px rgba(0,0,0,0.22);
+      transition: 0.25s ease;
+    }
+
+    .service-call:hover {
+      background: #e52323;
+      color: white;
+      transform: translateY(-5px) scale(1.04);
+      box-shadow: 0 18px 38px rgba(229, 35, 35, 0.4);
     }
 
     .news {
@@ -564,23 +685,6 @@
     .news-card a {
       color: #e52323;
       font-weight: 900;
-    }
-
-    .floating-access {
-      position: fixed;
-      right: 18px;
-      top: 18px;
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      border: 4px solid white;
-      background: #2457dc;
-      color: white;
-      display: grid;
-      place-items: center;
-      font-size: 32px;
-      z-index: 200;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.25);
     }
 
     .floating-settings {
@@ -651,6 +755,12 @@
       }
     }
 
+    @media (max-width: 900px) {
+      .service-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
     @media (max-width: 700px) {
       .header {
         top: 12px;
@@ -676,16 +786,11 @@
 
       .hero {
         padding-top: 190px;
-        min-height: 780px;
-      }
-
-      .weather-buttons {
-        top: 145px;
-        flex-direction: column;
+        min-height: 760px;
       }
 
       .hero-content {
-        padding-top: 220px;
+        padding-top: 170px;
       }
 
       .hero-actions {
@@ -701,392 +806,28 @@
         margin-top: -80px;
       }
 
-      .service-grid,
       .news-grid {
         grid-template-columns: 1fr;
+      }
+
+      .service-phone {
+        width: 100%;
+        text-align: center;
+        font-size: 28px;
+      }
+
+      .service-call {
+        width: 100%;
       }
 
       footer {
         flex-direction: column;
       }
     }
-    /* POPRAWKI WYGLĄDU */
-
-.logo {
-  transition: transform 0.25s ease, filter 0.25s ease;
-}
-
-.logo:hover {
-  transform: translateY(-4px) scale(1.03);
-  filter: drop-shadow(0 12px 18px rgba(36, 87, 220, 0.25));
-}
-
-.logo:hover .fake-herb {
-  animation: herbPulse 0.8s ease;
-}
-
-@keyframes herbPulse {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-
-  35% {
-    transform: rotate(-4deg) scale(1.08);
-  }
-
-  70% {
-    transform: rotate(4deg) scale(1.05);
-  }
-
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-}
-
-.nav a.home-link {
-  font-size: 22px;
-  padding: 11px 22px;
-}
-
-.nav a.home-link::after {
-  display: none;
-}
-
-/* żeby meteorologiczne nie chowało się pod menu */
-.weather-buttons {
-  top: 210px;
-}
-
-/* więcej miejsca na tekst główny */
-.hero {
-  min-height: 880px;
-  padding-top: 285px;
-}
-
-.hero-content {
-  padding-top: 135px;
-}
-
-/* przyciski nie będą wchodzić pod kafelki */
-.hero-actions {
-  margin-bottom: 80px;
-}
-
-/* kafelki niżej, żeby nie zasłaniały przycisków */
-.quick {
-  margin-top: -70px;
-}
-
-/* trochę szersze i równiejsze kafelki */
-.quick-card {
-  min-height: 190px;
-}
-
-/* poprawka responsywna */
-@media (max-width: 700px) {
-  .weather-buttons {
-    top: 165px;
-  }
-
-  .hero {
-    min-height: 850px;
-    padding-top: 210px;
-  }
-
-  .hero-content {
-    padding-top: 250px;
-  }
-
-  .quick {
-    margin-top: -45px;
-  }
-}
-    /* LEPSZE ANIMACJE PRZYCISKÓW U GÓRY */
-
-/* wspólna animacja dla małych przycisków */
-.small-icons button,
-.access-icons button,
-.search button,
-.nav a {
-  position: relative;
-  overflow: hidden;
-  transition:
-    transform 0.25s ease,
-    box-shadow 0.25s ease,
-    background 0.25s ease,
-    color 0.25s ease,
-    filter 0.25s ease;
-}
-
-/* efekt błysku na przyciskach */
-.small-icons button::before,
-.access-icons button::before,
-.search button::before,
-.nav a::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 80%;
-  height: 100%;
-  background: linear-gradient(
-    120deg,
-    transparent,
-    rgba(255, 255, 255, 0.45),
-    transparent
-  );
-  transform: skewX(-25deg);
-  transition: 0.55s;
-}
-
-/* błysk po najechaniu */
-.small-icons button:hover::before,
-.access-icons button:hover::before,
-.search button:hover::before,
-.nav a:hover::before {
-  left: 140%;
-}
-
-/* szare ikonki u góry */
-.small-icons button:hover {
-  transform: translateY(-5px) scale(1.12) rotate(-4deg);
-  background: #2457dc;
-  box-shadow: 0 12px 25px rgba(36, 87, 220, 0.35);
-}
-
-/* niebieskie ikonki dostępności */
-.access-icons button:hover {
-  transform: translateY(-5px) scale(1.12);
-  background: #e52323;
-  box-shadow: 0 12px 25px rgba(229, 35, 35, 0.35);
-}
-
-/* każdy drugi przycisk lekko inaczej */
-.access-icons button:nth-child(even):hover,
-.small-icons button:nth-child(even):hover {
-  transform: translateY(-5px) scale(1.12) rotate(4deg);
-}
-
-/* kliknięcie */
-.small-icons button:active,
-.access-icons button:active,
-.search button:active,
-.nav a:active {
-  transform: scale(0.92);
-}
-
-/* menu główne */
-.nav a:hover {
-  background: rgba(36, 87, 220, 0.09);
-  color: #2457dc;
-  border-radius: 12px;
-  transform: translateY(-3px);
-}
-
-/* przycisk domku */
-.nav a.home-link {
-  font-size: 22px;
-  padding: 11px 22px;
-  background: #2457dc;
-  color: white;
-  border-radius: 13px;
-  box-shadow: 0 10px 22px rgba(36, 87, 220, 0.28);
-}
-
-.nav a.home-link:hover {
-  animation: homeBounce 0.55s ease;
-  background: #e52323;
-  color: white;
-  box-shadow: 0 14px 30px rgba(229, 35, 35, 0.35);
-}
-
-@keyframes homeBounce {
-  0% {
-    transform: translateY(0) scale(1);
-  }
-
-  35% {
-    transform: translateY(-7px) scale(1.1);
-  }
-
-  65% {
-    transform: translateY(2px) scale(0.96);
-  }
-
-  100% {
-    transform: translateY(-3px) scale(1);
-  }
-}
-
-/* search input */
-.search input {
-  transition: box-shadow 0.25s ease, background 0.25s ease, width 0.25s ease;
-}
-
-.search input:focus {
-  background: white;
-  box-shadow: 0 0 0 3px rgba(36, 87, 220, 0.22);
-  width: 250px;
-}
-
-/* przycisk szukaj */
-.search button:hover {
-  background: #c91616;
-  transform: translateY(-3px);
-  box-shadow: 0 12px 25px rgba(229, 35, 35, 0.35);
-}
-
-/* logo — mocniejsza animacja */
-.logo {
-  transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.logo:hover {
-  transform: translateY(-4px) scale(1.03);
-  filter: drop-shadow(0 14px 20px rgba(36, 87, 220, 0.3));
-}
-
-.logo:hover .fake-herb {
-  animation: logoWiggle 0.75s ease;
-}
-
-@keyframes logoWiggle {
-  0% {
-    transform: rotate(0deg) scale(1);
-  }
-
-  25% {
-    transform: rotate(-6deg) scale(1.08);
-  }
-
-  50% {
-    transform: rotate(6deg) scale(1.1);
-  }
-
-  75% {
-    transform: rotate(-3deg) scale(1.05);
-  }
-
-  100% {
-    transform: rotate(0deg) scale(1);
-  }
-}
-
-/* delikatne podświetlenie całego headera po najechaniu */
-.header {
-  transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.header:hover {
-  box-shadow: 0 30px 75px rgba(0, 0, 0, 0.24);
-}
-    /* NUMER TELEFONU I PRZYCISK ZADZWOŃ W KAFELKACH */
-
-.service-phone {
-  position: relative;
-  z-index: 3;
-  display: inline-block;
-  margin-top: 24px;
-  padding: 14px 22px;
-  border-radius: 18px;
-  background: #e52323;
-  color: white;
-  font-size: clamp(26px, 3vw, 46px);
-  font-weight: 900;
-  letter-spacing: 1px;
-  box-shadow: 0 14px 30px rgba(229, 35, 35, 0.35);
-}
-
-.service-call {
-  position: relative;
-  z-index: 3;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  min-height: 54px;
-  padding: 0 28px;
-  border-radius: 999px;
-  background: white;
-  color: #071d59;
-  font-weight: 900;
-  text-transform: uppercase;
-  box-shadow: 0 14px 30px rgba(0,0,0,0.22);
-  transition: 0.25s ease;
-}
-
-.service-call:hover {
-  background: #e52323;
-  color: white;
-  transform: translateY(-5px) scale(1.04);
-  box-shadow: 0 18px 38px rgba(229, 35, 35, 0.4);
-}
-
-.service-call:active {
-  transform: scale(0.94);
-}
-
-@media (max-width: 520px) {
-  .service-phone {
-    width: 100%;
-    text-align: center;
-    font-size: 28px;
-  }
-
-  .service-call {
-    width: 100%;
-  }
-}
-    /* USUNIĘCIE PŁYWAJĄCEGO PRZYCISKU DOSTĘPNOŚCI */
-.floating-access,
-.access-floating {
-  display: none !important;
-}
-
-/* PRZYKLEJENIE METEO DO GÓRNEGO MENU */
-.weather-buttons {
-  position: fixed !important;
-  top: 180px !important;
-  left: 50% !important;
-  transform: translateX(-50%) !important;
-  z-index: 90 !important;
-  width: min(740px, calc(100% - 40px)) !important;
-}
-
-/* żeby wyglądało jak doczepione pod menu */
-.weather-buttons a {
-  border-radius: 0 0 14px 14px !important;
-  box-shadow: 0 16px 35px rgba(0, 0, 0, 0.16) !important;
-}
-
-/* header zawsze nad tymi przyciskami */
-.header {
-  z-index: 100 !important;
-}
-
-/* żeby tekst główny nie wchodził pod meteo */
-.hero-content {
-  padding-top: 170px !important;
-}
-
-/* telefon */
-@media (max-width: 700px) {
-  .weather-buttons {
-    top: 175px !important;
-    flex-direction: column !important;
-    width: calc(100% - 40px) !important;
-  }
-
-  .hero-content {
-    padding-top: 260px !important;
-  }
-}
   </style>
 </head>
 
 <body>
-
-  <div class="floating-settings">⚙</div>
 
   <header class="header">
     <div class="header-top">
@@ -1100,18 +841,18 @@
 
       <div class="header-tools">
         <div class="small-icons">
-          <button>⌂</button>
-          <button>▦</button>
-          <button>✉</button>
-          <button>RSS</button>
+          <button title="Strona główna">⌂</button>
+          <button title="Mapa strony">■</button>
+          <button title="Kontakt">✉</button>
+          <button title="RSS">RSS</button>
         </div>
 
         <div class="access-icons">
           <button>■</button>
-          <button>♿</button>
+          <button>▧</button>
           <button>☝</button>
           <button>♫</button>
-          <button>◐</button>
+          <button>●</button>
         </div>
 
         <form class="search">
@@ -1138,11 +879,6 @@
     <section class="hero">
       <button class="arrow left">‹</button>
       <button class="arrow right">›</button>
-
-      <div class="weather-buttons">
-        <a href="#">Archiwum meteorologiczne</a>
-        <a href="#">Aktualne ostrzeżenia meteorologiczne</a>
-      </div>
 
       <div class="hero-content">
         <span class="tag">Oficjalny serwis powiatu</span>
@@ -1209,31 +945,35 @@
         <h2>Usługi dla mieszkańców</h2>
       </div>
 
-<div class="service-grid">
-  <div class="service-card">
-    <span>01</span>
-    <h3>Wydawanie uprawnień</h3>
-    <p>Prawo jazdy, dokumenty, wnioski, formularze i informacje dla interesantów.</p>
+      <div class="service-grid">
+        <div class="service-card">
+          <span>01</span>
+          <h3>Wydawanie uprawnień</h3>
+          <p>Prawo jazdy, dokumenty, wnioski, formularze i informacje dla interesantów.</p>
 
-    <div class="service-phone">(+48) 797-994-735</div>
+          <div class="service-phone">(+48) 797-994-735</div>
 
-    <a href="tel:+48797994735" class="service-call">
-      📞 Zadzwoń teraz
-    </a>
-  </div>
+          <br />
 
-  <div class="service-card">
-    <span>02</span>
-    <h3>Rejestracja pojazdów</h3>
-    <p>Rejestracja auta, wymagane dokumenty, opłaty oraz najważniejsze procedury.</p>
+          <a href="tel:+48797994735" class="service-call">
+            📞 Zadzwoń teraz
+          </a>
+        </div>
 
-    <div class="service-phone">(+48) 797-994-705</div>
+        <div class="service-card">
+          <span>02</span>
+          <h3>Rejestracja pojazdów</h3>
+          <p>Rejestracja auta, wymagane dokumenty, opłaty oraz najważniejsze procedury.</p>
 
-    <a href="tel:+48797994705" class="service-call">
-      📞 Zadzwoń teraz
-    </a>
-  </div>
-</div>
+          <div class="service-phone">(+48) 797-994-705</div>
+
+          <br />
+
+          <a href="tel:+48797994705" class="service-call">
+            📞 Zadzwoń teraz
+          </a>
+        </div>
+      </div>
     </section>
 
     <section class="news">
@@ -1266,6 +1006,8 @@
       </div>
     </section>
   </main>
+
+  <div class="floating-settings">⚙</div>
 
   <footer>
     <div>
