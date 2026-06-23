@@ -1117,6 +1117,26 @@
 .fake-herb::after {
   display: none !important;
 }
+    /* LINK W GÓRNYCH OKRĄGŁYCH IKONKACH */
+.top-round-link {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #777;
+  color: white;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 800;
+  transition: 0.25s ease;
+}
+
+.top-round-link:hover {
+  transform: translateY(-5px) scale(1.12) rotate(4deg);
+  background: #2457dc;
+  box-shadow: 0 12px 25px rgba(36, 87, 220, 0.35);
+}
   </style>
 </head>
 
