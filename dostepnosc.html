@@ -1,1 +1,1144 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dostępność - Powiat Opatowski</title>
 
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --blue: #2457dc;
+      --dark-blue: #071d59;
+      --red: #e52323;
+      --light: #f3f6fb;
+      --text: #111827;
+      --muted: #6b7280;
+      --white: #ffffff;
+      --shadow: 0 22px 55px rgba(20, 40, 90, 0.16);
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      background: #f3f6fb;
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(36, 87, 220, 0.22), transparent 28%),
+        radial-gradient(circle at 85% 0%, rgba(229, 35, 35, 0.16), transparent 25%),
+        linear-gradient(180deg, #ffffff 0%, #f3f6fb 46%, #edf2fa 100%);
+    }
+
+    .top-bg {
+      background:
+        radial-gradient(circle at 18% 35%, rgba(36, 87, 220, 0.75), transparent 28%),
+        radial-gradient(circle at 82% 25%, rgba(229, 35, 35, 0.55), transparent 25%),
+        linear-gradient(135deg, #071d59 0%, #123aa0 48%, #0a1744 100%);
+      padding: 22px 0 120px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .top-bg::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+      background-size: 54px 54px;
+      opacity: 0.45;
+    }
+
+    .top-bg::after {
+      content: "";
+      position: absolute;
+      left: -10%;
+      right: -10%;
+      bottom: -80px;
+      height: 180px;
+      background: #f3f6fb;
+      border-radius: 50% 50% 0 0;
+    }
+
+    .header {
+      position: relative;
+      z-index: 5;
+      width: min(1380px, calc(100% - 44px));
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(16px);
+      border-radius: 28px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 25px;
+      padding: 22px 30px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .logo img {
+      width: 82px;
+      height: 94px;
+      object-fit: contain;
+      filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.22));
+      flex-shrink: 0;
+    }
+
+    .logo h1 {
+      color: var(--blue);
+      font-size: 42px;
+      line-height: 0.9;
+      letter-spacing: -1px;
+    }
+
+    .logo p {
+      margin-top: 8px;
+      color: #555;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 19px;
+    }
+
+    .top-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .top-icons a {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: #777;
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 900;
+      transition: 0.25s ease;
+    }
+
+    .top-icons a.blue {
+      border-radius: 9px;
+      background: var(--blue);
+    }
+
+    .top-icons a:hover {
+      transform: translateY(-4px) scale(1.08);
+      background: var(--red);
+      box-shadow: 0 12px 25px rgba(229, 35, 35, 0.28);
+    }
+
+    .search {
+      display: flex;
+      margin-left: 12px;
+    }
+
+    .search input {
+      width: 210px;
+      border: 0;
+      outline: none;
+      background: #e7e7e7;
+      padding: 13px 15px;
+      border-radius: 10px 0 0 10px;
+    }
+
+    .search button {
+      border: 0;
+      background: var(--red);
+      color: white;
+      padding: 0 22px;
+      border-radius: 0 10px 10px 0;
+      text-transform: uppercase;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 30px 18px;
+      gap: 0;
+    }
+
+    .nav a {
+      padding: 14px 22px;
+      text-transform: uppercase;
+      font-weight: 900;
+      border-left: 1px solid #ddd;
+      position: relative;
+      transition: 0.2s ease;
+    }
+
+    .nav a.home {
+      border-left: 0;
+      background: var(--blue);
+      color: white;
+      border-radius: 13px;
+      box-shadow: 0 10px 22px rgba(36, 87, 220, 0.28);
+    }
+
+    .nav a.active {
+      background: var(--blue);
+      color: white;
+      border-radius: 13px;
+      box-shadow: 0 10px 22px rgba(36, 87, 220, 0.28);
+    }
+
+    .nav a:hover {
+      color: var(--blue);
+      transform: translateY(-3px);
+    }
+
+    .nav a.home:hover,
+    .nav a.active:hover {
+      color: white;
+      background: var(--red);
+    }
+
+    .meteo-strip {
+      display: flex;
+      justify-content: flex-end;
+      gap: 18px;
+      padding: 0 60px 22px 30px;
+    }
+
+    .meteo-card {
+      width: 355px;
+      min-height: 62px;
+      padding: 14px 20px 18px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #ffffff, #eef3ff);
+      color: var(--dark-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 11px;
+      text-align: center;
+      text-transform: uppercase;
+      font-weight: 900;
+      box-shadow: 0 16px 35px rgba(20, 40, 90, 0.16);
+      border: 1px solid rgba(36, 87, 220, 0.12);
+      position: relative;
+      overflow: hidden;
+      transition: 0.25s ease;
+    }
+
+    .meteo-card span {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--blue);
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .meteo-card.alert span {
+      background: var(--red);
+    }
+
+    .meteo-card::after {
+      content: "";
+      position: absolute;
+      left: 25%;
+      right: 25%;
+      bottom: 9px;
+      height: 3px;
+      border-radius: 999px;
+      background: var(--red);
+      transition: 0.25s ease;
+    }
+
+    .meteo-card:hover {
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 24px 50px rgba(20, 40, 90, 0.25);
+    }
+
+    .hero {
+      position: relative;
+      z-index: 4;
+      width: min(1180px, calc(100% - 44px));
+      margin: 70px auto 0;
+      color: white;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      color: rgba(255,255,255,0.82);
+      font-weight: 700;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.16);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+    }
+
+    .hero h2 {
+      font-size: clamp(52px, 8vw, 100px);
+      line-height: 0.92;
+      letter-spacing: -4px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      max-width: 850px;
+      font-size: 22px;
+      line-height: 1.5;
+      color: rgba(255,255,255,0.88);
+    }
+
+    .phone-banners {
+      position: relative;
+      z-index: 10;
+      width: min(1180px, calc(100% - 44px));
+      margin: -50px auto 0;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px;
+    }
+
+    .phone-card {
+      background: linear-gradient(135deg, #4d4942, #70675e);
+      color: white;
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transition: 0.25s ease;
+    }
+
+    .phone-card:nth-child(2) {
+      background: linear-gradient(135deg, #2d3f83, #071d59);
+    }
+
+    .phone-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 30px 70px rgba(20, 40, 90, 0.25);
+    }
+
+    .phone-card h3 {
+      font-size: clamp(32px, 4vw, 54px);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      line-height: 0.95;
+    }
+
+    .phone-card p {
+      margin-top: 6px;
+      font-size: 26px;
+      font-weight: 800;
+      opacity: 0.9;
+    }
+
+    .phone-number {
+      margin-top: 22px;
+      background: var(--red);
+      color: white;
+      border-radius: 20px;
+      padding: 14px 22px;
+      font-size: clamp(32px, 4vw, 58px);
+      font-weight: 900;
+      letter-spacing: 1px;
+      display: inline-block;
+      box-shadow: 0 14px 30px rgba(229, 35, 35, 0.35);
+    }
+
+    .call-now {
+      display: inline-flex;
+      margin-top: 18px;
+      min-height: 52px;
+      align-items: center;
+      justify-content: center;
+      padding: 0 26px;
+      background: white;
+      color: var(--dark-blue);
+      border-radius: 999px;
+      font-weight: 900;
+      text-transform: uppercase;
+      transition: 0.25s ease;
+    }
+
+    .call-now:hover {
+      background: var(--red);
+      color: white;
+      transform: translateY(-4px);
+    }
+
+    .content {
+      width: min(1180px, calc(100% - 44px));
+      margin: 60px auto 80px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 330px;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .main-panel,
+    .side-panel {
+      background: white;
+      border-radius: 30px;
+      box-shadow: var(--shadow);
+      padding: 30px;
+    }
+
+    .section-title {
+      margin-bottom: 24px;
+      border-bottom: 2px solid #dce6ff;
+      padding-bottom: 16px;
+    }
+
+    .section-title span {
+      color: var(--red);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 1.4px;
+      font-size: 13px;
+    }
+
+    .section-title h3 {
+      color: var(--dark-blue);
+      font-size: 42px;
+      letter-spacing: -1px;
+      margin-top: 6px;
+    }
+
+    .tools-row {
+      display: flex;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .tool-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+      padding: 0 16px;
+      border-radius: 999px;
+      background: #eef3ff;
+      color: var(--blue);
+      font-weight: 900;
+      transition: 0.25s ease;
+      border: 1px solid #dce6ff;
+    }
+
+    .tool-btn:hover {
+      background: var(--blue);
+      color: white;
+      transform: translateY(-3px);
+      box-shadow: 0 12px 25px rgba(36, 87, 220, 0.22);
+    }
+
+    .intro-box {
+      background:
+        radial-gradient(circle at top right, rgba(36,87,220,0.13), transparent 30%),
+        linear-gradient(135deg, #f8faff, #ffffff);
+      border: 1px solid #dce6ff;
+      border-radius: 26px;
+      padding: 26px;
+      margin-bottom: 28px;
+    }
+
+    .intro-box h4 {
+      font-size: 26px;
+      color: var(--dark-blue);
+      margin-bottom: 12px;
+    }
+
+    .intro-box p {
+      color: #4b5563;
+      line-height: 1.7;
+      font-size: 17px;
+    }
+
+    .cards-title {
+      color: var(--blue);
+      text-transform: uppercase;
+      font-weight: 900;
+      letter-spacing: 1px;
+      border-bottom: 2px solid #dce6ff;
+      padding-bottom: 12px;
+      margin-bottom: 22px;
+    }
+
+    .access-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+    }
+
+    .access-card {
+      background: #f8faff;
+      border: 1px solid #dce6ff;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 14px 32px rgba(36, 87, 220, 0.08);
+      transition: 0.25s ease;
+    }
+
+    .access-card:hover {
+      transform: translateY(-7px);
+      box-shadow: 0 24px 50px rgba(36, 87, 220, 0.16);
+      border-color: #bcd0ff;
+    }
+
+    .card-img {
+      height: 145px;
+      display: grid;
+      place-items: center;
+      background:
+        radial-gradient(circle at center, rgba(36,87,220,0.12), transparent 36%),
+        linear-gradient(135deg, #ffffff, #eef3ff);
+      border-bottom: 3px solid var(--blue);
+    }
+
+    .card-img img {
+      width: 74px;
+      height: 86px;
+      object-fit: contain;
+      opacity: 0.8;
+      filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14));
+    }
+
+    .access-card-body {
+      padding: 18px;
+    }
+
+    .access-card h4 {
+      color: var(--dark-blue);
+      text-transform: uppercase;
+      font-size: 16px;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .access-card p {
+      color: #4b5563;
+      line-height: 1.55;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    .read-more {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--red);
+      font-weight: 900;
+      text-transform: uppercase;
+      font-size: 13px;
+      transition: 0.2s ease;
+    }
+
+    .read-more:hover {
+      gap: 12px;
+      color: var(--blue);
+    }
+
+    .side-menu-title {
+      background: var(--red);
+      color: white;
+      padding: 16px 18px;
+      border-radius: 18px 18px 0 0;
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .side-list {
+      background: #f4f7fd;
+      border-radius: 0 0 18px 18px;
+      overflow: hidden;
+      margin-bottom: 26px;
+      border: 1px solid #dce6ff;
+      border-top: 0;
+    }
+
+    .side-list a {
+      display: block;
+      padding: 14px 18px;
+      font-weight: 800;
+      color: #1f2a44;
+      border-bottom: 1px solid #dde7fb;
+      line-height: 1.4;
+      transition: 0.2s ease;
+    }
+
+    .side-list a:hover,
+    .side-list a.active {
+      background: var(--blue);
+      color: white;
+      transform: translateX(4px);
+    }
+
+    .side-section {
+      margin-top: 24px;
+    }
+
+    .recommend-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #dce6ff;
+      padding-bottom: 12px;
+      margin-bottom: 18px;
+      color: var(--blue);
+      text-transform: uppercase;
+      font-weight: 900;
+    }
+
+    .numbers {
+      display: flex;
+      gap: 4px;
+    }
+
+    .numbers span {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: var(--blue);
+      border-radius: 6px;
+      font-size: 12px;
+    }
+
+    .numbers span:first-child {
+      background: var(--red);
+    }
+
+    .promo-card {
+      border: 1px solid #dce6ff;
+      border-radius: 22px;
+      padding: 24px;
+      text-align: center;
+      background: #f8faff;
+      transition: 0.25s ease;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 16px 34px rgba(36, 87, 220, 0.12);
+    }
+
+    .promo-card img {
+      width: 92px;
+      height: 105px;
+      object-fit: contain;
+      opacity: 0.82;
+      margin-bottom: 14px;
+    }
+
+    .promo-card h4 {
+      color: var(--dark-blue);
+      text-transform: uppercase;
+      font-size: 18px;
+    }
+
+    .promo-card p {
+      margin-top: 8px;
+      color: var(--muted);
+      line-height: 1.5;
+      font-size: 14px;
+    }
+
+    .footer {
+      background: var(--red);
+      color: white;
+      padding: 45px min(80px, 6vw);
+      display: grid;
+      grid-template-columns: 1fr 1.4fr 1fr;
+      gap: 30px;
+      align-items: start;
+    }
+
+    .footer-brand {
+      display: flex;
+      gap: 14px;
+      align-items: center;
+    }
+
+    .footer-brand img {
+      width: 58px;
+      height: 68px;
+      object-fit: contain;
+      background: white;
+      border-radius: 10px;
+      padding: 4px;
+    }
+
+    .footer h4 {
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .footer p,
+    .footer a {
+      color: rgba(255,255,255,0.85);
+      line-height: 1.7;
+      font-size: 14px;
+    }
+
+    .footer a:hover {
+      color: white;
+      text-decoration: underline;
+    }
+
+    .footer-links {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px 20px;
+    }
+
+    @media (max-width: 1100px) {
+      .header-top {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .top-icons {
+        justify-content: flex-start;
+      }
+
+      .nav {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+      }
+
+      .meteo-strip {
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        padding-right: 30px;
+      }
+
+      .phone-banners {
+        grid-template-columns: 1fr;
+      }
+
+      .content {
+        grid-template-columns: 1fr;
+      }
+
+      .access-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .footer {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 700px) {
+      .header,
+      .main-panel,
+      .side-panel {
+        border-radius: 22px;
+      }
+
+      .logo img {
+        width: 62px;
+        height: 72px;
+      }
+
+      .logo h1 {
+        font-size: 32px;
+      }
+
+      .logo p {
+        font-size: 14px;
+      }
+
+      .search {
+        width: 100%;
+        margin-left: 0;
+      }
+
+      .search input {
+        width: 100%;
+      }
+
+      .nav {
+        flex-direction: column;
+        padding: 0 20px 20px;
+      }
+
+      .nav a {
+        border-left: 0;
+        border-top: 1px solid #ddd;
+      }
+
+      .meteo-strip {
+        flex-direction: column;
+      }
+
+      .meteo-card {
+        width: 100%;
+      }
+
+      .hero h2 {
+        font-size: 54px;
+      }
+
+      .hero p {
+        font-size: 18px;
+      }
+
+      .phone-card {
+        padding: 24px;
+      }
+
+      .section-title h3 {
+        font-size: 32px;
+      }
+
+      .access-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .tools-row {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+
+    <section class="top-bg">
+      <header class="header">
+        <div class="header-top">
+          <a href="index.html" class="logo">
+            <img src="herbopatow.png?v=2" alt="Herb Powiatu Opatowskiego">
+            <div>
+              <h1>Opatów</h1>
+              <p>Starostwo Powiatowe</p>
+            </div>
+          </a>
+
+          <div class="top-icons">
+            <a href="index.html" title="Strona główna">⌂</a>
+            <a href="mapa-strony.html" title="Mapa strony">▣</a>
+            <a href="#" title="Kontakt">✉</a>
+            <a href="#" title="RSS">RSS</a>
+
+            <a href="#" class="blue">■</a>
+            <a href="#" class="blue">♿</a>
+            <a href="#" class="blue">☝</a>
+            <a href="#" class="blue">♫</a>
+            <a href="#" class="blue">●</a>
+
+            <form class="search">
+              <input type="text" placeholder="Szukaj..." />
+              <button>Szukaj</button>
+            </form>
+          </div>
+        </div>
+
+        <nav class="nav">
+          <a href="index.html" class="home">🏠</a>
+          <a href="dostepnosc.html" class="active">Dostępność</a>
+          <a href="#">Aktualności</a>
+          <a href="#">Powiat</a>
+          <a href="#">Mieszkaniec</a>
+          <a href="#">Turysta</a>
+          <a href="#">Kontakt</a>
+        </nav>
+
+        <div class="meteo-strip">
+          <a href="#" class="meteo-card">
+            <span>🌦️</span>
+            <strong>Archiwum meteorologiczne</strong>
+          </a>
+
+          <a href="#" class="meteo-card alert">
+            <span>⚠️</span>
+            <strong>Aktualne ostrzeżenia meteorologiczne</strong>
+          </a>
+        </div>
+      </header>
+
+      <div class="hero">
+        <div class="breadcrumb">
+          <a href="index.html">Strona główna</a>
+          <span>›</span>
+          <a href="mapa-strony.html">Mapa strony</a>
+          <span>›</span>
+          <span>Dostępność</span>
+        </div>
+
+        <span class="hero-tag">Dostępność serwisu</span>
+        <h2>Dostępność</h2>
+        <p>
+          Najważniejsze informacje o dostępności, dokumentach, procedurach, wnioskach
+          oraz obsłudze osób ze szczególnymi potrzebami.
+        </p>
+      </div>
+    </section>
+
+    <section class="phone-banners">
+      <div class="phone-card">
+        <h3>Wydawanie uprawnień</h3>
+        <p>do kierowania pojazdami</p>
+        <div class="phone-number">(+48) 797-994-735</div>
+        <br>
+        <a href="tel:+48797994735" class="call-now">📞 Zadzwoń teraz</a>
+      </div>
+
+      <div class="phone-card">
+        <h3>Rejestracja pojazdów</h3>
+        <p>wydział komunikacji</p>
+        <div class="phone-number">(+48) 797-994-705</div>
+        <br>
+        <a href="tel:+48797994705" class="call-now">📞 Zadzwoń teraz</a>
+      </div>
+    </section>
+
+    <main class="content">
+      <section class="main-panel">
+        <div class="section-title">
+          <span>Mapa strony › Dostępność</span>
+          <h3>Dostępność</h3>
+        </div>
+
+        <div class="tools-row">
+          <a href="#" class="tool-btn">» Następna</a>
+          <a href="#" class="tool-btn">📄 PDF</a>
+          <a href="#" class="tool-btn">🖨️ Drukuj</a>
+          <a href="index.html" class="tool-btn">⌃ Powrót</a>
+          <a href="#" class="tool-btn">💬 Kontakt</a>
+        </div>
+
+        <div class="intro-box">
+          <h4>Informacje dla osób ze szczególnymi potrzebami</h4>
+          <p>
+            W tym dziale znajdują się dokumenty i informacje dotyczące dostępności cyfrowej,
+            architektonicznej oraz informacyjno-komunikacyjnej. Sekcja jest przygotowana tak,
+            aby szybko znaleźć deklarację dostępności, wnioski, raporty oraz dane koordynatora.
+          </p>
+        </div>
+
+        <div class="cards-title">Strony w dziale</div>
+
+        <div class="access-grid">
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Deklaracja dostępności</h4>
+              <p>Oświadczenie w sprawie dostępności strony internetowej oraz aplikacji cyfrowych.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Plan działania Starostwa Powiatowego</h4>
+              <p>Plan działań na rzecz poprawy zapewniania dostępności osobom ze szczególnymi potrzebami.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Procedura obsługi osób ze szczególnymi potrzebami</h4>
+              <p>Zasady obsługi osób z niepełnosprawnościami i osób wymagających wsparcia.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Wniosek o tłumacza języka migowego</h4>
+              <p>Informacje o możliwości skorzystania z pomocy tłumacza języka migowego.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Wniosek o zapewnienie dostępności cyfrowej</h4>
+              <p>Wniosek dotyczący zapewnienia dostępności cyfrowej strony lub elementu serwisu.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Wniosek o dostępność architektoniczną</h4>
+              <p>Procedura zapewnienia dostępności architektonicznej lub informacyjno-komunikacyjnej.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Raporty o stanie zapewnienia dostępności</h4>
+              <p>Raporty dotyczące zapewnienia dostępności osobom ze szczególnymi potrzebami.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Koordynator do spraw dostępności</h4>
+              <p>Dane kontaktowe osoby odpowiedzialnej za koordynację dostępności w urzędzie.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+
+          <article class="access-card">
+            <div class="card-img">
+              <img src="herbopatow.png?v=2" alt="Herb">
+            </div>
+            <div class="access-card-body">
+              <h4>Monitoring wizyjny</h4>
+              <p>Informacje dotyczące monitoringu wizyjnego oraz zasad przetwarzania danych.</p>
+              <a href="#" class="read-more">Czytaj więcej →</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <aside class="side-panel">
+        <div class="side-menu-title">Dostępność</div>
+
+        <div class="side-list">
+          <a href="#" class="active">Deklaracja dostępności</a>
+          <a href="#">Plan działania Starostwa Powiatowego</a>
+          <a href="#">Procedura obsługi osób ze szczególnymi potrzebami</a>
+          <a href="#">Wniosek o tłumacza języka migowego</a>
+          <a href="#">Wniosek o zapewnienie dostępności cyfrowej</a>
+          <a href="#">Wniosek o dostępność architektoniczną</a>
+          <a href="#">Raporty o stanie dostępności</a>
+          <a href="#">Koordynator do spraw dostępności</a>
+          <a href="#">Monitoring wizyjny</a>
+        </div>
+
+        <div class="side-section">
+          <div class="recommend-title">
+            <span>Polecamy</span>
+            <div class="numbers">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+            </div>
+          </div>
+
+          <a href="#" class="promo-card">
+            <img src="herbopatow.png?v=2" alt="Herb">
+            <h4>Władze powiatu</h4>
+            <p>Informacje o władzach oraz najważniejszych jednostkach powiatu.</p>
+          </a>
+
+          <a href="#" class="promo-card">
+            <img src="herbopatow.png?v=2" alt="Herb">
+            <h4>Monitoring wizyjny</h4>
+            <p>Informacje dotyczące bezpieczeństwa i monitoringu.</p>
+          </a>
+        </div>
+      </aside>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-brand">
+        <img src="herbopatow.png?v=2" alt="Herb">
+        <div>
+          <h4>Starostwo Powiatowe</h4>
+          <p>w Opatowie</p>
+        </div>
+      </div>
+
+      <div>
+        <h4>Kontakt</h4>
+        <p>ul. Henryka Sienkiewicza 17, 27-500 Opatów</p>
+        <p>Telefon: 00 000 00 00</p>
+        <p>Email: kontakt@opatow.pl</p>
+      </div>
+
+      <div>
+        <h4>Szybkie linki</h4>
+        <div class="footer-links">
+          <a href="index.html">Strona główna</a>
+          <a href="#">Aktualności</a>
+          <a href="#">Powiat</a>
+          <a href="#">Mieszkaniec</a>
+          <a href="#">Turysta</a>
+          <a href="#">Kontakt</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+</body>
+</html>
